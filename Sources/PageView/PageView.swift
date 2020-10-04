@@ -38,9 +38,9 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     private var previousPage: Int
     
     init(controllers: [UIViewController],
-         currentPage: Int) {
+         currentPage: Binding<Int>) {
         self.controllers = controllers
-        self.currentPage = currentPage
+        self._currentPage = currentPage
         self.previousPage = currentPage
     }
     
