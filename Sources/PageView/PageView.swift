@@ -14,7 +14,7 @@ public struct PageView<Page: View>: View {
     ///   - views: The ordered array of views to appear in the page view
     ///   - currentPage: A binding to the page that the user is currently on
     ///   - showsPageControl: Whether or not the page view should include the standard page control dots
-    init(_ views: [Page], currentPage: Binding<Int>, showsPageControl: Bool = true) {
+    public init(_ views: [Page], currentPage: Binding<Int>, showsPageControl: Bool = true) {
         self.viewControllers = views.map { UIHostingController(rootView: $0) }
         self._currentPage = currentPage
         self.showsPageControl = showsPageControl
