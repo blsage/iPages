@@ -59,7 +59,7 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-        let direction = previousPage < currentPage ? .forward : .reversed
+        let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
         pageViewController.setViewControllers(
             [controllers[currentPage]], direction: .forward, animated: true)
         previousPage = currentPage.wrappedValue
