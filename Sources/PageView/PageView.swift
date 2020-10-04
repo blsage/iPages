@@ -35,13 +35,13 @@ public struct PageView<Page: View>: View {
 fileprivate struct PageViewController: UIViewControllerRepresentable {
     var controllers: [UIViewController]
     @Binding var currentPage: Int
-    private var previousPage: Int
+    @State private var previousPage: Int
     
     init(controllers: [UIViewController],
          currentPage: Binding<Int>) {
         self.controllers = controllers
         self._currentPage = currentPage
-        self.previousPage = currentPage
+        self.previousPage = currentPage.wrappedValue
     }
     
     func makeCoordinator() -> Coordinator {
@@ -62,7 +62,7 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
         let direction = previousPage < currentPage ? .forward : .reversed
         pageViewController.setViewControllers(
             [controllers[currentPage]], direction: .forward, animated: true)
-        previousPage = currentPage
+        previousPage = currentPage.wrappedValue
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
