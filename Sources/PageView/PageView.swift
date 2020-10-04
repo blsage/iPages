@@ -35,7 +35,7 @@ public struct PageView<Page: View>: View {
 fileprivate struct PageViewController: UIViewControllerRepresentable {
     var controllers: [UIViewController]
     @Binding var currentPage: Int
-    @State private var previousPage: Int
+    @State private var previousPage = 0
     
     init(controllers: [UIViewController],
          currentPage: Binding<Int>) {
