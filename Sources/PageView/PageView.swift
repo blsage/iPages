@@ -62,7 +62,7 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
         let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
         pageViewController.setViewControllers(
             [controllers[currentPage]], direction: .forward, animated: true)
-        previousPage = currentPage.wrappedValue
+        previousPage = currentPage
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
