@@ -1,7 +1,7 @@
 import XCTest
 
-import PageViewTests
+import iPagesTests
 
 var tests = [XCTestCaseEntry]()
-tests += PageViewTests.allTests()
+tests += iPagesTests.allTests()
 XCTMain(tests)

@@ -2,9 +2,9 @@ import SwiftUI
 import UIKit
 
 @available(iOS 13.0, *)
-/// A `View` struct wrapper for `UIPageView` which allows a page
+/// A `View` struct wrapper for `UIiPages` which allows a page
 /// view to be written entirely in SwiftUI
-public struct PageView<Page: View>: View {
+public struct iPages<Page: View>: View {
     var viewControllers: [UIHostingController<Page>]
     @Binding var currentPage: Int
     var showsPageControl: Bool
@@ -29,7 +29,7 @@ public struct PageView<Page: View>: View {
     
     public var body: some View {
         ZStack(alignment: .bottom) {
-            PageViewController(controllers: viewControllers, currentPage: $currentPage, wraps: wraps)
+            iPagesController(controllers: viewControllers, currentPage: $currentPage, wraps: wraps)
             if showsPageControl {
                 PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
                     .padding()
@@ -39,7 +39,7 @@ public struct PageView<Page: View>: View {
 }
 
 @available(iOS 13.0, *)
-fileprivate struct PageViewController: UIViewControllerRepresentable {
+fileprivate struct iPagesController: UIViewControllerRepresentable {
     var controllers: [UIViewController]
     @Binding var currentPage: Int
     var wraps: Bool
@@ -59,19 +59,19 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
         Coordinator(self)
     }
     
-    func makeUIViewController(context: Context) -> UIPageViewController {
-        let pageViewController = UIPageViewController(
+    func makeUIViewController(context: Context) -> UIiPagesController {
+        let iPagesController = UIiPagesController(
             transitionStyle: .scroll,
             navigationOrientation: .horizontal)
-        pageViewController.dataSource = context.coordinator
-        pageViewController.delegate = context.coordinator
+        iPagesController.dataSource = context.coordinator
+        iPagesController.delegate = context.coordinator
         
-        return pageViewController
+        return iPagesController
     }
     
-    func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-        let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
-        pageViewController.setViewControllers(
+    func updateUIViewController(_ iPagesController: UIiPagesController, context: Context) {
+        let direction: UIiPagesController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
+        iPagesController.setViewControllers(
             [controllers[currentPage]], direction: direction, animated: true) { _ in
             DispatchQueue.main.async {
                 previousPage = currentPage
@@ -80,15 +80,15 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
         }
     }
     
-    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-        var parent: PageViewController
+    class Coordinator: NSObject, UIiPagesControllerDataSource, UIiPagesControllerDelegate {
+        var parent: iPagesController
         
-        init(_ pageViewController: PageViewController) {
-            self.parent = pageViewController
+        init(_ iPagesController: iPagesController) {
+            self.parent = iPagesController
         }
         
-        func pageViewController(
-            _ pageViewController: UIPageViewController,
+        func iPagesController(
+            _ iPagesController: UIiPagesController,
             viewControllerBefore viewController: UIViewController) -> UIViewController?
         {
             guard let index = parent.controllers.firstIndex(of: viewController) else {
@@ -104,8 +104,8 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
             return parent.controllers[index - 1]
         }
         
-        func pageViewController(
-            _ pageViewController: UIPageViewController,
+        func iPagesController(
+            _ iPagesController: UIiPagesController,
             viewControllerAfter viewController: UIViewController) -> UIViewController?
         {
             guard let index = parent.controllers.firstIndex(of: viewController) else {
@@ -121,9 +121,9 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
             return parent.controllers[index + 1]
         }
         
-        func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        func iPagesController(_ iPagesController: UIiPagesController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
             if completed,
-               let visibleViewController = pageViewController.viewControllers?.first,
+               let visibleViewController = iPagesController.viewControllers?.first,
                let index = parent.controllers.firstIndex(of: visibleViewController)
             {
                 parent.currentPage = index
