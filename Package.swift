@@ -3,7 +3,6 @@
 
 import PackageDescription
 import SwiftUI
-import UIKit
 
 let package = Package(
     name: "PageView",
@@ -26,5 +25,5 @@ let package = Package(
         .testTarget(
             name: "PageViewTests",
             dependencies: ["PageView"]),
-    ],
+    ]
 )
