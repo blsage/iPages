@@ -8,21 +8,28 @@ public struct PageView<Page: View>: View {
     var viewControllers: [UIHostingController<Page>]
     @Binding var currentPage: Int
     var showsPageControl: Bool
+    var wraps: Bool
     
     /// Initializes the view
     /// - Parameters:
     ///   - views: The ordered array of views to appear in the page view
     ///   - currentPage: A binding to the page that the user is currently on
     ///   - showsPageControl: Whether or not the page view should include the standard page control dots
-    public init(_ views: [Page], currentPage: Binding<Int>, showsPageControl: Bool = true) {
+    ///   - wraps: Whether or not the page view swipes cyclically infinitely
+    public init(_ views: [Page],
+                currentPage: Binding<Int>,
+                showsPageControl: Bool = true,
+                wraps: Bool = false)
+    {
         self.viewControllers = views.map { UIHostingController(rootView: $0) }
         self._currentPage = currentPage
         self.showsPageControl = showsPageControl
+        self.wraps = wraps
     }
     
     public var body: some View {
         ZStack(alignment: .bottom) {
-            PageViewController(controllers: viewControllers, currentPage: $currentPage)
+            PageViewController(controllers: viewControllers, currentPage: $currentPage, wraps: wraps)
             if showsPageControl {
                 PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
                     .padding()
@@ -35,12 +42,16 @@ public struct PageView<Page: View>: View {
 fileprivate struct PageViewController: UIViewControllerRepresentable {
     var controllers: [UIViewController]
     @Binding var currentPage: Int
+    var wraps: Bool
     @State private var previousPage = 0
     
     init(controllers: [UIViewController],
-         currentPage: Binding<Int>) {
+         currentPage: Binding<Int>,
+         wraps: Bool)
+    {
         self.controllers = controllers
         self._currentPage = currentPage
+        self.wraps = wraps
         self.previousPage = currentPage.wrappedValue
     }
     
@@ -61,8 +72,12 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
         let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
         pageViewController.setViewControllers(
-            [controllers[currentPage]], direction: .forward, animated: true)
-        previousPage = currentPage
+            [controllers[currentPage]], direction: direction, animated: true) { _ in
+            DispatchQueue.main.async {
+                previousPage = currentPage
+                
+            }
+        }
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -80,7 +95,11 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
                 return nil
             }
             if index == 0 {
-                return parent.controllers.last
+                if parent.wraps {
+                    return parent.controllers.last
+                } else {
+                    return nil
+                }
             }
             return parent.controllers[index - 1]
         }
@@ -93,7 +112,11 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
                 return nil
             }
             if index + 1 == parent.controllers.count {
-                return parent.controllers.first
+                if parent.wraps {
+                    return parent.controllers.first
+                } else {
+                    return nil
+                }
             }
             return parent.controllers[index + 1]
         }

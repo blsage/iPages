@@ -2,6 +2,8 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+import SwiftUI
+import UIKit
 
 let package = Package(
     name: "PageView",
@@ -24,5 +26,5 @@ let package = Package(
         .testTarget(
             name: "PageViewTests",
             dependencies: ["PageView"]),
-    ]
+    ],
 )
