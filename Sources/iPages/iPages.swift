@@ -29,7 +29,7 @@ public struct iPages<Page: View>: View {
     
     public var body: some View {
         ZStack(alignment: .bottom) {
-            iPagesController(controllers: viewControllers, currentPage: $currentPage, wraps: wraps)
+            PageViewController(controllers: viewControllers, currentPage: $currentPage, wraps: wraps)
             if showsPageControl {
                 PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
                     .padding()
@@ -39,7 +39,7 @@ public struct iPages<Page: View>: View {
 }
 
 @available(iOS 13.0, *)
-fileprivate struct iPagesController: UIViewControllerRepresentable {
+fileprivate struct PageViewController: UIViewControllerRepresentable {
     var controllers: [UIViewController]
     @Binding var currentPage: Int
     var wraps: Bool
@@ -59,19 +59,19 @@ fileprivate struct iPagesController: UIViewControllerRepresentable {
         Coordinator(self)
     }
     
-    func makeUIViewController(context: Context) -> UIiPagesController {
-        let iPagesController = UIiPagesController(
+    func makeUIViewController(context: Context) -> UIPageViewController {
+        let pageViewController = UIPageViewController(
             transitionStyle: .scroll,
             navigationOrientation: .horizontal)
-        iPagesController.dataSource = context.coordinator
-        iPagesController.delegate = context.coordinator
+        pageViewController.dataSource = context.coordinator
+        pageViewController.delegate = context.coordinator
         
-        return iPagesController
+        return pageViewController
     }
     
-    func updateUIViewController(_ iPagesController: UIiPagesController, context: Context) {
-        let direction: UIiPagesController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
-        iPagesController.setViewControllers(
+    func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+        let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
+        pageViewController.setViewControllers(
             [controllers[currentPage]], direction: direction, animated: true) { _ in
             DispatchQueue.main.async {
                 previousPage = currentPage
@@ -80,15 +80,15 @@ fileprivate struct iPagesController: UIViewControllerRepresentable {
         }
     }
     
-    class Coordinator: NSObject, UIiPagesControllerDataSource, UIiPagesControllerDelegate {
-        var parent: iPagesController
+    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+        var parent: PageViewController
         
-        init(_ iPagesController: iPagesController) {
-            self.parent = iPagesController
+        init(_ pageViewController: PageViewController) {
+            self.parent = pageViewController
         }
         
-        func iPagesController(
-            _ iPagesController: UIiPagesController,
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
             viewControllerBefore viewController: UIViewController) -> UIViewController?
         {
             guard let index = parent.controllers.firstIndex(of: viewController) else {
@@ -104,8 +104,8 @@ fileprivate struct iPagesController: UIViewControllerRepresentable {
             return parent.controllers[index - 1]
         }
         
-        func iPagesController(
-            _ iPagesController: UIiPagesController,
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
             viewControllerAfter viewController: UIViewController) -> UIViewController?
         {
             guard let index = parent.controllers.firstIndex(of: viewController) else {
@@ -121,9 +121,14 @@ fileprivate struct iPagesController: UIViewControllerRepresentable {
             return parent.controllers[index + 1]
         }
         
-        func iPagesController(_ iPagesController: UIiPagesController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            didFinishAnimating finished: Bool,
+            previousViewControllers: [UIViewController],
+            transitionCompleted completed: Bool)
+        {
             if completed,
-               let visibleViewController = iPagesController.viewControllers?.first,
+               let visibleViewController = pageViewController.viewControllers?.first,
                let index = parent.controllers.firstIndex(of: visibleViewController)
             {
                 parent.currentPage = index
