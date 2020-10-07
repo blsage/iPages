@@ -9,6 +9,8 @@ public struct iPages<Page: View>: View {
     private var showsPageControl: Bool = true
     private var wraps: Bool = false
     
+    private var pageControl: PageControl?
+    
     /// Initializes the view.
     /// - Parameters:
     ///   - views: The ordered array of views to appear in the page view
@@ -18,13 +20,15 @@ public struct iPages<Page: View>: View {
     public init(_ views: [Page], currentPage: Binding<Int>) {
         self.viewControllers = views.map { UIHostingController(rootView: $0) }
         self._currentPage = currentPage
+        self.pageControl = PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
+        
     }
     
     public var body: some View {
         ZStack(alignment: .bottom) {
             PageViewController(controllers: viewControllers, currentPage: $currentPage, wraps: wraps)
             if showsPageControl {
-                PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
+                pageControl
                     .padding()
             }
         }
@@ -48,6 +52,45 @@ public extension iPages {
     func wrapsInfinitely(_ wraps: Bool) -> iPages {
         var view = self
         view.wraps = wraps
+        return view
+    }
+    
+    /// Modifies whether the page dots are hidden when there is only one page.
+    /// - Parameter hide: Whether the page dots are hidden when there is only one page
+    /// - Returns: A page view with the desired dots hiding with one page settings
+    func dotsHideForSinglePage(_ hide: Bool) -> iPages {
+        var view = self
+        view.pageControl?.hidesForSinglePage = hide
+        return view
+    }
+    
+    /// Modifies tint colors to be used for the page dots.
+    /// - Parameters:
+    ///   - currentPage: The tint color to be used for the current page dot
+    ///   - otherPages: The Tint color to be used for dots which are not the current page
+    /// - Returns: A page view with the desired dot colors
+    func dotsTintColors(currentPage: Color, otherPages: Color) -> iPages {
+        var view = self
+        view.pageControl?.currentPageIndicatorTintColor = UIColor(currentPage)
+        view.pageControl?.pageIndicatorTintColor = UIColor(otherPages)
+        return view
+    }
+    
+    /// Modifies the background style of the page dots.
+    /// - Parameter style: The style of the background of the page dots
+    /// - Returns: A page view with the desired background style of the dots
+    func dotsBackgroundStyle(_ style: UIPageControl.BackgroundStyle) -> iPages {
+        var view = self
+        view.pageControl?.backgroundStyle = style
+        return view
+    }
+    
+    /// Modifies the continuous interaction settings of the dots.
+    /// - Parameter allowContinuousInteraction: Whether the dots allow continuous interaction
+    /// - Returns: A page view with the desired continuous interaction settings of the page dots
+    func dotsAllowContinuousInteraction(_ allowContinuousInteraction: Bool) -> iPages {
+        var view = self
+        view.pageControl?.allowsContinuousInteraction = allowContinuousInteraction
         return view
     }
 }
@@ -156,6 +199,12 @@ fileprivate struct PageControl: UIViewRepresentable {
     var numberOfPages: Int
     @Binding var currentPage: Int
     
+    fileprivate var hidesForSinglePage: Bool = false
+    fileprivate var pageIndicatorTintColor: UIColor?
+    fileprivate var currentPageIndicatorTintColor: UIColor?
+    fileprivate var backgroundStyle: UIPageControl.BackgroundStyle = .automatic
+    fileprivate var allowsContinuousInteraction: Bool = true
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -167,6 +216,12 @@ fileprivate struct PageControl: UIViewRepresentable {
             context.coordinator,
             action: #selector(Coordinator.updateCurrentPage(sender:)),
             for: .valueChanged)
+        
+        control.hidesForSinglePage = hidesForSinglePage
+        control.pageIndicatorTintColor = pageIndicatorTintColor
+        control.currentPageIndicatorTintColor = currentPageIndicatorTintColor
+        control.backgroundStyle = backgroundStyle
+        control.allowsContinuousInteraction = allowsContinuousInteraction
         
         return control
     }
