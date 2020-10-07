@@ -71,14 +71,15 @@ public extension iPages {
     /// - Returns: A page view with the desired dot colors
     func dotsTintColors(currentPage: Color, otherPages: Color) -> iPages {
         var view = self
-        view.pageControl?.currentPageIndicatorTintColor = UIColor(currentPage)
-        view.pageControl?.pageIndicatorTintColor = UIColor(otherPages)
+        view.pageControl?.currentPageIndicatorTintColor = UIColor.from(color: currentPage)
+        view.pageControl?.pageIndicatorTintColor = UIColor.from(color: otherPages)
         return view
     }
     
     /// Modifies the background style of the page dots.
     /// - Parameter style: The style of the background of the page dots
     /// - Returns: A page view with the desired background style of the dots
+    @available(iOS 14, *)
     func dotsBackgroundStyle(_ style: UIPageControl.BackgroundStyle) -> iPages {
         var view = self
         view.pageControl?.backgroundStyle = style
@@ -88,6 +89,7 @@ public extension iPages {
     /// Modifies the continuous interaction settings of the dots.
     /// - Parameter allowContinuousInteraction: Whether the dots allow continuous interaction
     /// - Returns: A page view with the desired continuous interaction settings of the page dots
+    @available(iOS 14, *)
     func dotsAllowContinuousInteraction(_ allowContinuousInteraction: Bool) -> iPages {
         var view = self
         view.pageControl?.allowsContinuousInteraction = allowContinuousInteraction
@@ -202,9 +204,23 @@ fileprivate struct PageControl: UIViewRepresentable {
     fileprivate var hidesForSinglePage: Bool = false
     fileprivate var pageIndicatorTintColor: UIColor?
     fileprivate var currentPageIndicatorTintColor: UIColor?
-    fileprivate var backgroundStyle: UIPageControl.BackgroundStyle = .automatic
-    fileprivate var allowsContinuousInteraction: Bool = true
     
+    fileprivate var _backgroundStyle: Any? = nil
+    @available(iOS 14, *)
+    fileprivate var backgroundStyle: UIPageControl.BackgroundStyle {
+        get {
+            if _backgroundStyle == nil {
+                return .automatic
+            } else {
+                return _backgroundStyle as! UIPageControl.BackgroundStyle
+            }
+        }
+        set(newStyle) {
+            _backgroundStyle = newStyle
+        }
+    }
+    fileprivate var allowsContinuousInteraction: Bool = true
+        
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -220,8 +236,11 @@ fileprivate struct PageControl: UIViewRepresentable {
         control.hidesForSinglePage = hidesForSinglePage
         control.pageIndicatorTintColor = pageIndicatorTintColor
         control.currentPageIndicatorTintColor = currentPageIndicatorTintColor
-        control.backgroundStyle = backgroundStyle
-        control.allowsContinuousInteraction = allowsContinuousInteraction
+        
+        if #available(iOS 14, *) {
+            control.backgroundStyle = backgroundStyle
+            control.allowsContinuousInteraction = allowsContinuousInteraction
+        }
         
         return control
     }
@@ -239,6 +258,29 @@ fileprivate struct PageControl: UIViewRepresentable {
         
         @objc func updateCurrentPage(sender: UIPageControl) {
             control.currentPage = sender.currentPage
+        }
+    }
+}
+
+@available(iOS 13, *)
+fileprivate extension UIColor {
+    class func from(color: Color) -> UIColor {
+        if #available(iOS 14, *) {
+            return UIColor(color)
+        } else {
+            let scanner = Scanner(string: color.description.trimmingCharacters(in: CharacterSet.alphanumerics.inverted))
+            var hexNumber: UInt64 = 0
+            var r: CGFloat = 0.0, g: CGFloat = 0.0, b: CGFloat = 0.0, a: CGFloat = 0.0
+            
+            let result = scanner.scanHexInt64(&hexNumber)
+            if result {
+                r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                a = CGFloat(hexNumber & 0x000000ff) / 255
+            }
+            
+            return UIColor(red: r, green: g, blue: b, alpha: a)
         }
     }
 }
