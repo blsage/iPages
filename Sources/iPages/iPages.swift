@@ -2,29 +2,22 @@ import SwiftUI
 import UIKit
 
 @available(iOS 13.0, *)
-/// A `View` struct wrapper for `UIiPages` which allows a page
-/// view to be written entirely in SwiftUI
+/// A `View` struct wrapper for `UIiPages` which allows a page view to be written entirely in SwiftUI. Binds to a zero-indexed current page `Int`.
 public struct iPages<Page: View>: View {
-    var viewControllers: [UIHostingController<Page>]
+    private var viewControllers: [UIHostingController<Page>]
     @Binding var currentPage: Int
-    var showsPageControl: Bool
-    var wraps: Bool
+    private var showsPageControl: Bool = true
+    private var wraps: Bool = false
     
-    /// Initializes the view
+    /// Initializes the view.
     /// - Parameters:
     ///   - views: The ordered array of views to appear in the page view
-    ///   - currentPage: A binding to the page that the user is currently on
+    ///   - currentPage: A binding to the page that the user is currently on, zero indexed
     ///   - showsPageControl: Whether or not the page view should include the standard page control dots
-    ///   - wraps: Whether or not the page view swipes  infinitely
-    public init(_ views: [Page],
-                currentPage: Binding<Int>,
-                showsPageControl: Bool = true,
-                wraps: Bool = false)
-    {
+    ///   - wraps: Whether or not the page view swipes infinitely
+    public init(_ views: [Page], currentPage: Binding<Int>) {
         self.viewControllers = views.map { UIHostingController(rootView: $0) }
         self._currentPage = currentPage
-        self.showsPageControl = showsPageControl
-        self.wraps = wraps
     }
     
     public var body: some View {
@@ -35,6 +28,27 @@ public struct iPages<Page: View>: View {
                     .padding()
             }
         }
+    }
+}
+
+@available(iOS 13.0, *)
+public extension iPages {
+    /// Modifies whether or not the page view should include the standard page control dots.
+    /// - Parameter hideDots: Whether the page view should hide the page dots at the bottom
+    /// - Returns: A page view with the the desired presence or absence of dots
+    func hideDots(_ hideDots: Bool) -> iPages {
+        var view = self
+        view.showsPageControl = !hideDots
+        return view
+    }
+    
+    /// Modifies whether or not the page view should restart at the beginning when swiping past the end.
+    /// - Parameter wraps: Whether or not the page view wraps infinitely
+    /// - Returns: A page view with the desired infinite wrap
+    func wrapsInfinitely(_ wraps: Bool) -> iPages {
+        var view = self
+        view.wraps = wraps
+        return view
     }
 }
 
