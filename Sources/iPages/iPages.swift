@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import iGraphics
 
 @available(iOS 13.0, *)
 /// A `View` struct wrapper for `UIiPages` which allows a page view to be written entirely in SwiftUI. Binds to a zero-indexed current page `Int`.
@@ -212,8 +213,8 @@ fileprivate struct PageControl: UIViewRepresentable {
     @Binding var currentPage: Int
     
     fileprivate var hidesForSinglePage: Bool = false
-    fileprivate var pageIndicatorTintColor: UIColor?
-    fileprivate var currentPageIndicatorTintColor: UIColor?
+    fileprivate var pageIndicatorTintColor: UIColor = UIColor(hue: 0, saturation: 0.00, brightness: 0.80, alpha: 1.0)
+    fileprivate var currentPageIndicatorTintColor: UIColor = UIColor(hue: 0, saturation: 0.00, brightness: 0.25, alpha: 1.0)
     
     fileprivate var _backgroundStyle: Any? = nil
     @available(iOS 14, *)
