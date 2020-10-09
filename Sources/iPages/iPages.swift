@@ -129,9 +129,19 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+        var pageToLoad = currentPage
+        
+        if currentPage >= controllers.count {
+            pageToLoad = controllers.count - 1
+        }
+        
+        if currentPage < 0 {
+            pageToLoad = 0
+        }
+        
         let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
         pageViewController.setViewControllers(
-            [controllers[currentPage]], direction: direction, animated: true) { _ in
+            [controllers[pageToLoad]], direction: direction, animated: true) { _ in
             DispatchQueue.main.async {
                 previousPage = currentPage
                 
