@@ -2,7 +2,9 @@ import SwiftUI
 import UIKit
 
 @available(iOS 13.0, *)
-/// A `View` struct wrapper for `UIiPages` which allows a page view to be written entirely in SwiftUI. Binds to a zero-indexed current page `Int`.
+/// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI. 🙌
+///
+/// Binds to a zero-indexed 0️⃣ "current page" `Int`eger.
 public struct iPages<Page: View>: View {
     private var viewControllers: [UIHostingController<Page>]
     @Binding var currentPage: Int
@@ -11,12 +13,12 @@ public struct iPages<Page: View>: View {
     
     private var pageControl: PageControl?
     
-    /// Initializes the view.
+    /// Initializes the page 📃📖 view. 👷‍♀️
     /// - Parameters:
-    ///   - views: The ordered array of views to appear in the page view
-    ///   - currentPage: A binding to the page that the user is currently on, zero indexed
-    ///   - showsPageControl: Whether or not the page view should include the standard page control dots
-    ///   - wraps: Whether or not the page view swipes infinitely
+    ///   - views: The ordered array of `View`s to appear in the page view 📑
+    ///   - currentPage: A binding to the page that the user is currently on ⌚️, zero indexed (meaning page 1 is 0, page 2 is 1, etc.)
+    ///   - showsPageControl: Whether or not the page view should include the standard page control dots (••••)
+    ///   - wraps: Whether or not the page view swipes infinitely 🔁
     public init(_ views: [Page], currentPage: Binding<Int>) {
         self.viewControllers = views.map { UIHostingController(rootView: $0) }
         self._currentPage = currentPage
@@ -37,8 +39,8 @@ public struct iPages<Page: View>: View {
 
 @available(iOS 13.0, *)
 public extension iPages {
-    /// Modifies whether or not the page view should include the standard page control dots.
-    /// - Parameter hideDots: Whether the page view should hide the page dots at the bottom
+    /// Modifies whether or not the page view should include the standard page control **dots**. (••••)
+    /// - Parameter hideDots: Whether the page view should hide the page dots at the bottom 👇
     /// - Returns: A page view with the the desired presence or absence of dots
     func hideDots(_ hideDots: Bool) -> iPages {
         var view = self
@@ -46,8 +48,8 @@ public extension iPages {
         return view
     }
     
-    /// Modifies whether or not the page view should restart at the beginning when swiping past the end.
-    /// - Parameter wraps: Whether or not the page view wraps infinitely
+    /// Modifies whether or not the page view should **restart at the beginning** 🔁 when swiping past the end (and vise-versa).
+    /// - Parameter wraps: Whether or not the page view wraps infinitely 🔄
     /// - Returns: A page view with the desired infinite wrap
     func wrapsInfinitely(_ wraps: Bool) -> iPages {
         var view = self
@@ -55,7 +57,7 @@ public extension iPages {
         return view
     }
     
-    /// Modifies whether the page dots are hidden when there is only one page.
+    /// Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
     /// - Parameter hide: Whether the page dots are hidden when there is only one page
     /// - Returns: A page view with the desired dots hiding with one page settings
     func dotsHideForSinglePage(_ hide: Bool) -> iPages {
@@ -64,10 +66,10 @@ public extension iPages {
         return view
     }
     
-    /// Modifies tint colors to be used for the page dots.
+    /// Modifies **tint colors** 🟡🟢🔴🟣 to be used for the page dots.
     /// - Parameters:
-    ///   - currentPage: The tint color to be used for the current page dot
-    ///   - otherPages: The Tint color to be used for dots which are not the current page
+    ///   - currentPage: The tint color to be used for the current page dot ⬇️
+    ///   - otherPages: The Tint color to be used for dots which are not the current page⬅️➡️
     /// - Returns: A page view with the desired dot colors
     func dotsTintColors(currentPage: Color, otherPages: Color) -> iPages {
         var view = self
@@ -76,7 +78,7 @@ public extension iPages {
         return view
     }
     
-    /// Modifies the background style of the page dots.
+    /// Modifies the **background style**  of the page dots.
     /// - Parameter style: The style of the background of the page dots
     /// - Returns: A page view with the desired background style of the dots
     @available(iOS 14, *)
@@ -86,7 +88,7 @@ public extension iPages {
         return view
     }
     
-    /// Modifies the continuous interaction settings of the dots.
+    /// Modifies the continuous interaction settings of the dots. 🔄
     /// - Parameter allowContinuousInteraction: Whether the dots allow continuous interaction
     /// - Returns: A page view with the desired continuous interaction settings of the page dots
     @available(iOS 14, *)
