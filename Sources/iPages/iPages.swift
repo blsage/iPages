@@ -4,7 +4,7 @@ import UIKit
 @available(iOS 13.0, *)
 /// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI. 🙌
 ///
-/// Binds to a zero-indexed 0️⃣ "current page" `Int`eger.
+/// Binds to a zero-indexed 0️⃣1️⃣2️⃣ "current page" `Int`eger.
 public struct iPages<Page: View>: View {
     private var viewControllers: [UIHostingController<Page>]
     @Binding var currentPage: Int
@@ -78,7 +78,7 @@ public extension iPages {
         return view
     }
     
-    /// Modifies the **background style**  of the page dots.
+    /// Modifies the **background style** ⚪️🔘  of the page dots.
     /// - Parameter style: The style of the background of the page dots
     /// - Returns: A page view with the desired background style of the dots
     @available(iOS 14, *)
