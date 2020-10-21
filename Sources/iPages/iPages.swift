@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import iGraphics
 
 @available(iOS 13.0, *)
 /// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI. 🙌
@@ -129,9 +130,19 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+        var pageToLoad = currentPage
+        
+        if currentPage >= controllers.count {
+            pageToLoad = controllers.count - 1
+        }
+        
+        if currentPage < 0 {
+            pageToLoad = 0
+        }
+        
         let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
         pageViewController.setViewControllers(
-            [controllers[currentPage]], direction: direction, animated: true) { _ in
+            [controllers[pageToLoad]], direction: direction, animated: true) { _ in
             DispatchQueue.main.async {
                 previousPage = currentPage
                 
@@ -202,8 +213,8 @@ fileprivate struct PageControl: UIViewRepresentable {
     @Binding var currentPage: Int
     
     fileprivate var hidesForSinglePage: Bool = false
-    fileprivate var pageIndicatorTintColor: UIColor?
-    fileprivate var currentPageIndicatorTintColor: UIColor?
+    fileprivate var pageIndicatorTintColor: UIColor = UIColor(hue: 0, saturation: 0.00, brightness: 0.80, alpha: 1.0)
+    fileprivate var currentPageIndicatorTintColor: UIColor = UIColor(hue: 0, saturation: 0.00, brightness: 0.25, alpha: 1.0)
     
     fileprivate var _backgroundStyle: Any? = nil
     @available(iOS 14, *)
