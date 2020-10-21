@@ -2,6 +2,10 @@
 
 Quickly implement swipable page views in iOS. 📝
 
+<img src="instructions/iPagesDemoPrimary.gif"
+     alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" />
+
 1. [Install](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md) `iPages`
 2. Add `iPages` to your project
 ```swift
