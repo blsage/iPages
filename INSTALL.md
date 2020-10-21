@@ -10,4 +10,5 @@
 ![](instructions/instructions-3-iPages.png)
 
 
-[*Back to README*](https://github.com/benjaminsage/iPages)
+
+##[*Back to README >*](https://github.com/benjaminsage/iPages)
