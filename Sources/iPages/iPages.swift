@@ -1,6 +1,5 @@
 import SwiftUI
 import UIKit
-import iGraphics
 
 @available(iOS 13.0, *)
 /// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI. 🙌
@@ -145,7 +144,6 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
             [controllers[pageToLoad]], direction: direction, animated: true) { _ in
             DispatchQueue.main.async {
                 previousPage = currentPage
-                
             }
         }
     }

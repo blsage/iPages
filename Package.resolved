@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "iColor",
+        "repositoryURL": "https://github.com/benjaminsage/iColor.git",
+        "state": {
+          "branch": null,
+          "revision": "3c2ae81be776ba4b26a0ca223f819c4d7676b5d4",
+          "version": "0.1.2"
+        }
+      },
+      {
+        "package": "iGraphics",
+        "repositoryURL": "https://github.com/benjaminsage/iGraphics.git",
+        "state": {
+          "branch": null,
+          "revision": "ee1b64e75aea47f9e6083ccc163d49496bdf3b6a",
+          "version": "0.0.6"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
