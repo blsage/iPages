@@ -1,3 +1,6 @@
+[*<<< Back to README*](https://github.com/benjaminsage/iPages)
+
+
 # Instructions
 
 ## **(1/3)** Open XCode. Go to [File > Swift Packges > Add Package Dependency...]
@@ -11,4 +14,4 @@
 
 
 
-[*Back to README >>>*](https://github.com/benjaminsage/iPages)
+[*<<< Back to README*](https://github.com/benjaminsage/iPages)
