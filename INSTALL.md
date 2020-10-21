@@ -8,3 +8,6 @@
 
 ## (3/3) Select Version: Up to Next Major & click finish.
 ![](instructions/instructions-3-iPages.png)
+
+
+[*Back to README*](../README.md)
