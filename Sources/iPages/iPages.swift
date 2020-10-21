@@ -5,8 +5,8 @@ import UIKit
 /// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI. 🙌
 ///
 /// Binds to a zero-indexed 0️⃣1️⃣2️⃣ "current page" `Int`eger.
-public struct iPages<Page: View>: View {
-    private var viewControllers: [UIHostingController<Page>]
+public struct iPages: View {
+    private var viewControllers: [UIViewController]
     @Binding var currentPage: Int
     private var showsPageControl: Bool = true
     private var wraps: Bool = false
@@ -15,15 +15,13 @@ public struct iPages<Page: View>: View {
     
     /// Initializes the page 📃📖 view. 👷‍♀️
     /// - Parameters:
-    ///   - views: The ordered array of `View`s to appear in the page view 📑
     ///   - currentPage: A binding to the page that the user is currently on ⌚️, zero indexed (meaning page 1 is 0, page 2 is 1, etc.)
-    ///   - showsPageControl: Whether or not the page view should include the standard page control dots (••••)
-    ///   - wraps: Whether or not the page view swipes infinitely 🔁
-    public init(_ views: [Page], currentPage: Binding<Int>) {
-        self.viewControllers = views.map { UIHostingController(rootView: $0) }
+    ///   - content: The ordered view builder of `View`s to appear in the page view 📑
+    public init(currentPage: Binding<Int>,
+                @PageViewBuilder content: () -> [UIViewController]) {
+        self.viewControllers = content()
         self._currentPage = currentPage
         self.pageControl = PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
-        
     }
     
     public var body: some View {
@@ -222,7 +220,7 @@ fileprivate struct PageControl: UIViewRepresentable {
         }
     }
     fileprivate var allowsContinuousInteraction: Bool = true
-        
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
