@@ -2,7 +2,7 @@
 
 Quickly implement swipable page views in iOS. 📝
 
-![](instructions/iPagesDemoPrimary.gif =250x)
+<img src="instructions/iPagesDemoPrimary.gif" alt="drawing" width="100"/>
 
 1. [Install](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md) `iPages`
 2. Add `iPages` to your project
