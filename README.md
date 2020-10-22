@@ -10,15 +10,14 @@
 ```swift
 import SwiftUI
 import iPages
-import iGraphics
 
 struct ContentView: View {
     @State var currentPage: Int = 0
 
     var body: some View {
         iPages(currentPage: $currentPage) {
-            iGraphicsView(.first)
-            iGraphicsView(.second)
+            Text("iPages")
+            Color.pink
         }
     }
 }
