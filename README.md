@@ -2,7 +2,7 @@
 
 ### Quickly implement swipable page views in iOS. 📝
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](YOUR_EMAIL_CODE)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=6D46F7EC7M8RS)
 
 <img src="instructions/iPagesDemoPrimary.gif" alt="drawing" width="250"/>
 
