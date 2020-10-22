@@ -2,8 +2,6 @@
 
 ### Quickly implement swipable page views in iOS. 📝
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=6D46F7EC7M8RS)
-
 <img src="instructions/iPagesDemoPrimary.gif" alt="drawing" width="250"/>
 
 1. [Install](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md) `iPages`
