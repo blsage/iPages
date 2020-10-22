@@ -9,8 +9,8 @@ import SwiftUI
 
 @_functionBuilder
 public struct PageViewBuilder {
-    public static func buildBlock<Content>(_ c: Content) -> Content {
-        return c
+    public static func buildBlock<Content>(_ c: Content) -> [UIViewController] where Content: View {
+        return [UIHostingController(rootView: c)]
     }
     
     public static func buildBlock<C0, C1>(
