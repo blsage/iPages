@@ -91,7 +91,7 @@ Use our exhaustive input list to customize your views.
 Modifier | Description
 --- | ---
 `.hideDots(hideDots: Bool) -> iPages` | Modifies whether or not the page view should include the standard page control dots. (••••)
-`.wrapsInfinitely(wraps: Bool) -> iPages` | Modifies whether or not the page view should restart at the beginning 🔁 when swiping past the end (and vise-versa)
+`.wraps(wraps: Bool) -> iPages` | Modifies whether or not the page view should restart at the beginning 🔁 when swiping past the end (and vise-versa)
 `.dotsHideForSinglePage(hide: Bool) -> iPages` | Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
 `.dotsTintColors(currentPage: Color, otherPages: Color) -> iPages` | Modifies tint colors 🟡🟢🔴🟣 to be used for the page dots.
 `.dotsBackgroundStyle(style: UIPageControl.BackgroundStyle) -> iPages` | Modifies the background style ⚪️🔘 of the page dots.

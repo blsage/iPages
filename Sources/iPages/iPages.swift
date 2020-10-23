@@ -2,17 +2,19 @@ import SwiftUI
 import UIKit
 
 @available(iOS 13.0, *)
-/// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI. 🙌
+/// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI.
 ///
 /// Binds to a zero-indexed 0️⃣1️⃣2️⃣ "current page" `Int`eger.
 public struct iPages: View {
     private var viewControllers: [UIViewController]
     @Binding var currentPage: Int
     private var showsPageControl: Bool = true
-    private var wraps: Bool = false
     
+    private var pageControlAlignment: Alignment = .bottom
+    
+    private var pageViewController: PageViewController?
     private var pageControl: PageControl?
-    
+            
     /// Initializes the page 📃📖 view. 👷‍♀️
     /// - Parameters:
     ///   - currentPage: A binding to the page that the user is currently on ⌚️, zero indexed (meaning page 1 is 0, page 2 is 1, etc.)
@@ -21,15 +23,84 @@ public struct iPages: View {
                 @PageViewBuilder content: () -> [UIViewController]) {
         self.viewControllers = content()
         self._currentPage = currentPage
-        self.pageControl = PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
+        self.pageViewController = PageViewController(controllers: viewControllers,
+                                                     currentPage: $currentPage)
+        self.pageControl = PageControl(numberOfPages: viewControllers.count,
+                                       currentPage: $currentPage)
     }
     
     public var body: some View {
-        ZStack(alignment: .bottom) {
-            PageViewController(controllers: viewControllers, currentPage: $currentPage, wraps: wraps)
+        ZStack(alignment: .center) {
+            pageViewController
             if showsPageControl {
-                pageControl
-                    .padding()
+                switch pageControlAlignment {
+                case .bottomLeading:
+                    VStack {
+                        Spacer()
+                        HStack {
+                            pageControl
+                                .fixedSize()
+                                .padding(.vertical)
+                            Spacer()
+                        }
+                    }
+                case .bottomTrailing:
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            pageControl
+                                .fixedSize()
+                                .padding(.vertical)
+                        }
+                    }
+                case .center:
+                    pageControl
+                case .leading:
+                    VStack {
+                        Spacer()
+                        pageControl
+                    }
+                    .aspectRatio(1, contentMode: .fit)
+                    .rotationEffect(.degrees(90))
+                case .top:
+                    VStack {
+                        pageControl.padding()
+                        Spacer()
+                    }
+                case .topLeading:
+                    VStack {
+                        HStack {
+                            pageControl
+                                .fixedSize()
+                                .padding(.vertical)
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                case .topTrailing:
+                    VStack {
+                        HStack {
+                            Spacer()
+                            pageControl
+                                .fixedSize()
+                                .padding(.vertical)
+                        }
+                        Spacer()
+                    }
+                case .trailing:
+                    VStack {
+                        pageControl
+                        Spacer()
+                    }
+                    .aspectRatio(1, contentMode: .fit)
+                    .rotationEffect(.degrees(90))
+                default:
+                    VStack {
+                        Spacer()
+                        pageControl.padding()
+                    }
+                }
             }
         }
     }
@@ -49,9 +120,9 @@ public extension iPages {
     /// Modifies whether or not the page view should **restart at the beginning** 🔁 when swiping past the end (and vise-versa).
     /// - Parameter wraps: Whether or not the page view wraps infinitely 🔄
     /// - Returns: A page view with the desired infinite wrap
-    func wrapsInfinitely(_ wraps: Bool) -> iPages {
+    func wraps(_ wraps: Bool) -> iPages {
         var view = self
-        view.wraps = wraps
+        view.pageViewController?.wraps = wraps
         return view
     }
     
@@ -95,23 +166,53 @@ public extension iPages {
         view.pageControl?.allowsContinuousInteraction = allowContinuousInteraction
         return view
     }
+    
+    /// Modifies the **alignment of the page dots**. 👆 👇
+    ///
+    /// *Trailing* and *leading* alignments will cause the page dots to rotate vertical
+    /// - Parameter alignment: Page dot alignment
+    /// - Returns: A page view with the desired dots alignment
+    func dotsAlignment(_ alignment: Alignment) -> iPages {
+        var view = self
+        view.pageControlAlignment = alignment
+        return view
+    }
+    
+    /// Modifies the navigation **orientation** of the page view. ↔️ ↕️
+    /// - Parameter orientation: The navigation orientation, either horizontal or vertical.
+    /// - Returns: A page view with the desired navigation orientation
+    func navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation) -> iPages {
+        var view = self
+        view.pageViewController?.navigationOrientation = orientation
+        return view
+    }
+    
+    /// Disables the **bounce** settings of the page view.
+    ///
+    /// This is especially useful for scroll views.
+    /// - Parameter disable: Whether the bounce settings should be disabled
+    /// - Returns: A page view with the desired bounce settings
+    func disableBounce(_ disable: Bool) -> iPages {
+        var view = self
+        view.pageViewController?.bounce = !disable
+        return view
+    }
 }
 
 @available(iOS 13.0, *)
 fileprivate struct PageViewController: UIViewControllerRepresentable {
     var controllers: [UIViewController]
     @Binding var currentPage: Int
-    var wraps: Bool
-    @State private var previousPage = 0
+    
+    fileprivate var wraps: Bool = false
+    fileprivate var navigationOrientation: UIPageViewController.NavigationOrientation = .horizontal
+    fileprivate var bounce: Bool = true
     
     init(controllers: [UIViewController],
-         currentPage: Binding<Int>,
-         wraps: Bool)
+         currentPage: Binding<Int>)
     {
         self.controllers = controllers
         self._currentPage = currentPage
-        self.wraps = wraps
-        self.previousPage = currentPage.wrappedValue
     }
     
     func makeCoordinator() -> Coordinator {
@@ -121,31 +222,31 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIPageViewController {
         let pageViewController = UIPageViewController(
             transitionStyle: .scroll,
-            navigationOrientation: .horizontal)
+            navigationOrientation: navigationOrientation)
+        
         pageViewController.dataSource = context.coordinator
         pageViewController.delegate = context.coordinator
         
+        pageViewController.view.backgroundColor = .clear
+        
+        for view in pageViewController.view.subviews {
+            if let scrollView = view as? UIScrollView {
+                scrollView.delegate = context.coordinator
+                break
+            }
+        }
+                
         return pageViewController
     }
     
     func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-        var pageToLoad = currentPage
+        let previousPage = context.coordinator.parent.currentPage
+        context.coordinator.parent = self
         
-        if currentPage >= controllers.count {
-            pageToLoad = controllers.count - 1
-        }
-        
-        if currentPage < 0 {
-            pageToLoad = 0
-        }
-        
-        let direction: UIPageViewController.NavigationDirection = previousPage < currentPage ? .forward : .reverse
         pageViewController.setViewControllers(
-            [controllers[pageToLoad]], direction: direction, animated: true) { _ in
-            DispatchQueue.main.async {
-                previousPage = currentPage
-            }
-        }
+            [controllers[currentPage]],
+            direction: currentPage > previousPage ? .forward : .reverse,
+            animated: true)
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
@@ -250,7 +351,7 @@ fileprivate struct PageControl: UIViewRepresentable {
             control.backgroundStyle = backgroundStyle
             control.allowsContinuousInteraction = allowsContinuousInteraction
         }
-        
+                
         return control
     }
     
@@ -290,6 +391,38 @@ fileprivate extension UIColor {
             }
             
             return UIColor(red: r, green: g, blue: b, alpha: a)
+        }
+    }
+}
+
+@available(iOS 13.0, *)
+extension PageViewController.Coordinator: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !parent.bounce {
+            if parent.navigationOrientation == .horizontal {
+                disableHorizontalBounce(scrollView)
+            } else {
+                disableVerticalBounce(scrollView)
+            }
+        }
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        scrollViewDidScroll(scrollView)
+    }
+    
+    private func disableHorizontalBounce(_ scrollView: UIScrollView) {
+        if parent.currentPage == 0 && scrollView.contentOffset.x < scrollView.bounds.size.width ||
+            parent.currentPage == self.parent.controllers.count - 1 && scrollView.contentOffset.x > scrollView.bounds.size.width {
+            scrollView.contentOffset = CGPoint(x: scrollView.bounds.size.width, y: 0)
+        }
+    }
+    
+    private func disableVerticalBounce(_ scrollView: UIScrollView) {
+        if parent.currentPage == 0 && scrollView.contentOffset.y < scrollView.bounds.size.height ||
+            parent.currentPage == self.parent.controllers.count - 1 && scrollView.contentOffset.y > scrollView.bounds.size.height {
+            scrollView.contentOffset = CGPoint(x: 0, y: scrollView.bounds.size.height)
         }
     }
 }
