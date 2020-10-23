@@ -122,7 +122,7 @@ Use the Swift package manager to install. Find instructions [here](https://githu
 
 
 ## Usage
-iPages is FREE and open-source for individuals, and will remain that way forever. 
+<b>iPages is FREE and open-source for individuals, and will remain that way forever. </b>
 
 iPages is distributed under a GNU GPL open-source license. 
 
