@@ -81,7 +81,7 @@ struct ContentView: View {
                 .stack(2)
         }
         .hideDots(true)
-        .wrapsInfinitely(true)
+        .wraps(true)
     }
 }
 ```
@@ -96,7 +96,7 @@ iPages(currentPage: $currentPage) {
     EmptyView()
 }
 .dotsTintColors(currentPage: Color, otherPages: Color)
-.wrapsInfinitely(true)
+.wraps(true)
 .dotsHideForSinglePage(true)
 
 ```
