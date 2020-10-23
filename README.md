@@ -42,6 +42,8 @@ struct ContentView: View {
 
 ## Examples
 ### Marketing Materials
+<img src="https://iswiftui.com/assets/img/iPagesDemo2Light.gif" width="200">
+
 Use `iGraphicsView` to demo marketing slides.
 ```swift
 import SwiftUI
@@ -63,7 +65,9 @@ struct ContentView: View {
 
 
 ### Shopping App
+<img src="https://iswiftui.com/assets/img/iPagesDemo1Dark.gif" width="200">
 Hide the bottom dots & add infinite scroll to remove context.
+
 ```swift
 import SwiftUI
 import iPages
