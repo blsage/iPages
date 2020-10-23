@@ -98,5 +98,5 @@ Modifier | Description
 `.dotsAllowContinuousInteraction(allowContinuousInteraction: Bool) -> iPages` | Modifies the continuous interaction settings of the dots. 🔄
 `.dotsAlignment(_ alignment: Alignment) -> iPages` | Modifies the **alignment of the page dots**. 👆 👇
 `.navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation) -> iPages` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
-`disableBounce(_ disable: Bool) -> iPages` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
-`interPageSpacing(_ spacing: CGFloat) -> iPages` | Modifies the spacing between the pages. ↔️
+`.disableBounce(_ disable: Bool) -> iPages` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
+`.interPageSpacing(_ spacing: CGFloat) -> iPages` | Modifies the spacing between the pages. ↔️
