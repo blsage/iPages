@@ -117,9 +117,9 @@ Use the Swift package manager to install. Find instructions [here](https://githu
 
 
 ## Usage
-iPages is distributed under a <i>GNU GPL</i> open-source license. This license allows iPages to ALWAYS remain FREE for individuals. 
+iPages is distributed under a GNU GPL open-source license. This license allows iPages to ALWAYS remain FREE for individuals. 
 
-However, this license is often <b><i><a href="https://en.wikipedia.org/wiki/GNU_General_Public_License#Legal_barrier_to_app_stores">incompatible for many commercial applications</a></i></b>. If your app is distributed for commercial use, it could violate this open-source license even "if the application is free in the App Store". 
+However, this license is often <b><a href="https://en.wikipedia.org/wiki/GNU_General_Public_License#Legal_barrier_to_app_stores">incompatible for many commercial applications</a></b>. If your app is distributed for commercial use, it could violate this open-source license even "if the application is free in the App Store". 
 
 In order to offer iPages safely to our commercial friends we made it easy to purchase a lifetime, full-use license for $4.99. Code on worry free 😁 
 
