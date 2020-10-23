@@ -1,8 +1,19 @@
-# iPages
+<h1 align="center"> iPages📖</p>
+<h3 align="center"> Quickly implement swipable page views in iOS. 📝 </h3>
+<p align="center">
+    <strong><a href="#get-started">Get Started</a></strong> |
+    <strong><a href="#examples">Examples</a></strong> |
+    <strong><a href="#customize">Customize</a></strong> |
+    <strong><a href="#install">Install</a></strong> | 
+    <strong><a href="#usage">Usage</a></strong>
+</p>
+<p align="center">
+    <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/iPagesDemo2.gif" alt="CI" />
+</p>
 
-### Quickly implement swipable page views in iOS. 📝
+<br/>
 
-<img src="instructions/iPagesDemoPrimary.gif" alt="drawing" width="250"/>
+## Get Started
 
 1. [Install](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md) `iPages`
 
@@ -28,6 +39,8 @@ struct ContentView: View {
 
 ## Examples
 ### Marketing Materials
+<img src="https://iswiftui.com/assets/img/iPagesDemo2Light.gif" width="200">
+
 Use `iGraphicsView` to demo marketing slides.
 ```swift
 import SwiftUI
@@ -49,7 +62,9 @@ struct ContentView: View {
 
 
 ### Shopping App
+<img src="https://iswiftui.com/assets/img/iPagesDemo1Dark.gif" width="200">
 Hide the bottom dots & add infinite scroll to remove context.
+
 ```swift
 import SwiftUI
 import iPages
@@ -100,3 +115,20 @@ Modifier | Description
 `.navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation) -> iPages` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
 `.disableBounce(_ disable: Bool) -> iPages` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
 `.interPageSpacing(_ spacing: CGFloat) -> iPages` | Modifies the spacing between the pages. ↔️
+
+
+## Install 
+Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀
+
+
+## Usage
+<b>iPages is FREE and open-source for individuals, and will remain that way forever. </b>
+
+iPages is distributed under a GNU GPL open-source license. 
+
+Commercial users, please note, this license is often <b><a href="https://en.wikipedia.org/wiki/GNU_General_Public_License#Legal_barrier_to_app_stores">incompatible for many commercial applications</a></b>. If your app is distributed for commercial use, it could violate this open-source license even "if the application is free in the App Store". 
+
+In order to offer iPages safely to our commercial friends we made it easy to purchase a lifetime, full-use license for $4.99. Code on worry free 😁 
+
+<a href="https://general099748.typeform.com/to/p5FtTKBj"> <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/Purchase%20License.png" width="300"> </a>
+
