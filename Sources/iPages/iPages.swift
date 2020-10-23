@@ -29,77 +29,25 @@ public struct iPages: View {
                                        currentPage: $currentPage)
     }
     
+    @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
+        
     public var body: some View {
-        ZStack(alignment: .center) {
+        ZStack(alignment: pageControlAlignment) {
             pageViewController
             if showsPageControl {
                 switch pageControlAlignment {
-                case .bottomLeading:
+                case .leading, .trailing:
                     VStack {
-                        Spacer()
-                        HStack {
-                            pageControl
-                                .fixedSize()
-                                .padding(.vertical)
-                            Spacer()
-                        }
-                    }
-                case .bottomTrailing:
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            pageControl
-                                .fixedSize()
-                                .padding(.vertical)
-                        }
-                    }
-                case .center:
-                    pageControl
-                case .leading:
-                    VStack {
-                        Spacer()
+                        if pageControlAlignment == .leading { Spacer() }
                         pageControl
+                        if pageControlAlignment == .trailing { Spacer() }
                     }
                     .aspectRatio(1, contentMode: .fit)
-                    .rotationEffect(.degrees(90))
-                case .top:
-                    VStack {
-                        pageControl.padding()
-                        Spacer()
-                    }
-                case .topLeading:
-                    VStack {
-                        HStack {
-                            pageControl
-                                .fixedSize()
-                                .padding(.vertical)
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                case .topTrailing:
-                    VStack {
-                        HStack {
-                            Spacer()
-                            pageControl
-                                .fixedSize()
-                                .padding(.vertical)
-                        }
-                        Spacer()
-                    }
-                case .trailing:
-                    VStack {
-                        pageControl
-                        Spacer()
-                    }
-                    .aspectRatio(1, contentMode: .fit)
-                    .rotationEffect(.degrees(90))
+                    .rotationEffect(.degrees(layoutDirection ~= .leftToRight ? 90 : -90))
                 default:
-                    VStack {
-                        Spacer()
-                        pageControl.padding()
-                    }
+                    pageControl
+                        .fixedSize()
+                        .padding(.vertical)
                 }
             }
         }
@@ -179,11 +127,16 @@ public extension iPages {
     }
     
     /// Modifies the navigation **orientation** of the page view. ↔️ ↕️
+    ///
+    /// By default, moves the page dots to the trailing edge
     /// - Parameter orientation: The navigation orientation, either horizontal or vertical.
     /// - Returns: A page view with the desired navigation orientation
     func navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation) -> iPages {
         var view = self
         view.pageViewController?.navigationOrientation = orientation
+        if orientation == .vertical {
+            view.pageControlAlignment = .trailing
+        }
         return view
     }
     
