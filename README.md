@@ -15,9 +15,6 @@
 
 ## Get Started
 
-<img src="instructions/iPagesDemoPrimary.gif" alt="drawing" width="250"/>
-
-
 1. [Install](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md) `iPages`
 
 2. Add `iPages` to your project
