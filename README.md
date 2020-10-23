@@ -127,5 +127,5 @@ However, this license is often <b><a href="https://en.wikipedia.org/wiki/GNU_Gen
 
 In order to offer iPages safely to our commercial friends we made it easy to purchase a lifetime, full-use license for $4.99. Code on worry free 😁 
 
-<img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/Purchase%20License.png" width="300"> 
+<a href="https://general099748.typeform.com/to/p5FtTKBj"> <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/Purchase%20License.png" width="300"> </a>
 
