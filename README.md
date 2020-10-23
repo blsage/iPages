@@ -1,8 +1,22 @@
-# iPages
+<h1 align="center"> iPages📖</p>
+<h3 align="center"> Quickly implement swipable page views in iOS. 📝 </h3>
+<p align="center">
+    <strong><a href="#get-started">Get Started</a></strong> |
+    <strong><a href="#examples">Examples</a></strong> |
+    <strong><a href="#customize">Customize</a></strong> |
+    <strong><a href="#install">Install</a></strong> | 
+    <strong><a href="#usage">Usage</a></strong>
+</p>
+<p align="center">
+    <img src="https://github.com/AlexFine/iPages/blob/main/Resources/preview.gif" alt="CI" />
+</p>
 
-### Quickly implement swipable page views in iOS. 📝
+<br/>
+
+## Get Started
 
 <img src="instructions/iPagesDemoPrimary.gif" alt="drawing" width="250"/>
+
 
 1. [Install](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md) `iPages`
 
@@ -96,3 +110,18 @@ Modifier | Description
 `.dotsTintColors(currentPage: Color, otherPages: Color) -> iPages` | Modifies tint colors 🟡🟢🔴🟣 to be used for the page dots.
 `.dotsBackgroundStyle(style: UIPageControl.BackgroundStyle) -> iPages` | Modifies the background style ⚪️🔘 of the page dots.
 `.dotsAllowContinuousInteraction(allowContinuousInteraction: Bool) -> iPages` | Modifies the continuous interaction settings of the dots. 🔄
+
+
+## Install 
+Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀
+
+
+## Usage
+iPages is distributed under a <i>GNU GPL</i> open-source license. This license allows iPages to ALWAYS remain FREE for individuals. 
+
+However, this license is often <b><i><a href="https://en.wikipedia.org/wiki/GNU_General_Public_License#Legal_barrier_to_app_stores">incompatible for many commercial applications</a></i></b>. If your app is distributed for commercial use, it could violate this open-source license even "if the application is free in the App Store". 
+
+In order to offer iPages safely to our commercial friends we made it easy to purchase a lifetime, full-use license for $4.99. Code on worry free 😁 
+
+<img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/Purchase%20License.png" width="300"> 
+
