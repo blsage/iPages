@@ -12,7 +12,7 @@ import iColor
 struct CustomDotsExample: View {
     @State var currentPage: Int = 0
     var body: some View {
-        iPages(currentPage: $currentPage) {
+        iPages(selection: $currentPage) {
             iGraphicsView(.first)
             iGraphicsView(.second)
             iGraphicsView(.third)
@@ -25,21 +25,21 @@ struct CustomDotsExample: View {
 struct ShoppingSwipeViewExample: View {
     @State var currentPage: Int = 0
     var body: some View {
-        iPages(currentPage: $currentPage) {
+        iPages(selection: $currentPage) {
             iGraphicsBox(.photo)
                 .stack(3)
             iGraphicsBox(.card)
                 .stack(2)
         }
         .hideDots(true)
-        .wrapsInfinitely(true)
+        .wraps(true)
     }
 }
 
 struct MarketingSwipeViewExample: View {
     @State var currentPage: Int = 0
     var body: some View {
-        iPages(currentPage: $currentPage) {
+        iPages(selection: $currentPage) {
             iGraphicsView(.first)
             iGraphicsView(.second)
             iGraphicsView(.third)
