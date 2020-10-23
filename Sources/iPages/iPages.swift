@@ -150,6 +150,15 @@ public extension iPages {
         view.pageViewController?.bounce = !disable
         return view
     }
+    
+    /// Modifies the spacing between the pages. ↔️
+    /// - Parameter spacing: The spacing between pages, in Points. Defaults to 0.
+    /// - Returns: A page view with modified inter-page spacing
+    func interPageSpacing(_ spacing: CGFloat) -> iPages {
+        var view = self
+        view.pageViewController?.interPageSpacing = spacing
+        return view
+    }
 }
 
 @available(iOS 13.0, *)
@@ -160,6 +169,7 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     fileprivate var wraps: Bool = false
     fileprivate var navigationOrientation: UIPageViewController.NavigationOrientation = .horizontal
     fileprivate var bounce: Bool = true
+    fileprivate var interPageSpacing: CGFloat = 0
     
     init(controllers: [UIViewController],
          currentPage: Binding<Int>)
@@ -173,9 +183,13 @@ fileprivate struct PageViewController: UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: Context) -> UIPageViewController {
+        let options: [UIPageViewController.OptionsKey : Any] = [
+            .interPageSpacing : interPageSpacing
+        ]
         let pageViewController = UIPageViewController(
             transitionStyle: .scroll,
-            navigationOrientation: navigationOrientation)
+            navigationOrientation: navigationOrientation,
+            options: options)
         
         pageViewController.dataSource = context.coordinator
         pageViewController.delegate = context.coordinator
