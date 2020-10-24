@@ -33,19 +33,16 @@ public struct iPages: View {
     
     // Page control
     var pageControlHidesForSinglePage: Bool = false
-    var pageControlCurrentPageIndicatorTintColor: UIColor? =
-        UIColor(hue: 0, saturation: 0.00, brightness: 0.0, alpha: 1.0)
-    var pageControlPageIndicatorTintColor: UIColor? =
-        UIColor(hue: 0, saturation: 0.00, brightness: 0.80, alpha: 1.0)
+    var pageControlCurrentPageIndicatorTintColor: UIColor?
+    var pageControlPageIndicatorTintColor: UIColor?
     private var _pageControlBackgroundStyle: Any? = nil
     @available(iOS 14, *)
     var pageControlBackgroundStyle: UIPageControl.BackgroundStyle {
         get {
-            if _pageControlBackgroundStyle == nil {
+            guard _pageControlBackgroundStyle != nil else {
                 return .automatic
-            } else {
-                return _pageControlBackgroundStyle as! UIPageControl.BackgroundStyle
             }
+            return _pageControlBackgroundStyle as! UIPageControl.BackgroundStyle
         }
         set(newStyle) {
             _pageControlBackgroundStyle = newStyle
@@ -77,9 +74,9 @@ public struct iPages: View {
     ///   - selection: A binding to the page that the user is currently on ⌚️, zero indexed (meaning page 1 is 0, page 2 is 1, etc.)
     ///   - content: The ordered view builder of `View`s to appear in the page view 📑
     public init(selection: Binding<Int>? = nil,
-                @PageViewBuilder content: () -> [UIViewController])
+                @PageViewBuilder content: () -> [AnyView])
     {
-        viewControllers = content()
+        viewControllers = content().map { UIHostingController(rootView: $0) }
         if let selection = selection {
             _externalSelection = selection
             hasExternalSelection = true
