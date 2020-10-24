@@ -23,10 +23,8 @@ import SwiftUI
 import iPages
 
 struct ContentView: View {
-    @State var currentPage: Int = 0
-
     var body: some View {
-        iPages(currentPage: $currentPage) {
+        iPages {
             Text("iPages")
             Color.pink
         }
@@ -42,16 +40,15 @@ struct ContentView: View {
 <img src="https://iswiftui.com/assets/img/iPagesDemo2Light.gif" width="200">
 
 Use `iGraphicsView` to demo marketing slides.
+
 ```swift
 import SwiftUI
 import iPages
 import iGraphics
 
 struct ContentView: View {
-    @State var currentPage: Int = 0
-
     var body: some View {
-        iPages(currentPage: $currentPage) {
+        iPages {
             iGraphicsView(.first)
             iGraphicsView(.second)
             iGraphicsView(.third)
@@ -65,6 +62,8 @@ struct ContentView: View {
 <img src="https://iswiftui.com/assets/img/iPagesDemo1Dark.gif" width="200">
 Hide the bottom dots & add infinite scroll to remove context.
 
+If you want, you can pass in your own optional selection binding to `iPages`.
+
 ```swift
 import SwiftUI
 import iPages
@@ -74,7 +73,7 @@ struct ContentView: View {
     @State var currentPage: Int = 0
 
     var body: some View {
-        iPages(currentPage: $currentPage) {
+        iPages(selection: $currentPage) {
             iGraphicsBox(.photo)
                 .stack(3)
             iGraphicsBox(.card)
@@ -88,23 +87,26 @@ struct ContentView: View {
 
 
 ## Customize
-`iPages` has two required parameters: 1️⃣ a state variable to track the current page, and 2️⃣ a trailing view builder of ordered views. `iPages` supports a variety of custom modifiers. All customizations are built into our modifiers.
+`iPages` takes a trailing view builder of ordered views. You can also optionally pass in your own page index binding called `selection:`, to let you build your own page control, or however you want to use it. `iPages` supports a variety of custom modifiers. All customizations are built into our modifiers.
 
 **Example**: Change the dot colors, enable infinite wrap & hide dots for single page views with the following code block:
 ```swift
 iPages(currentPage: $currentPage) {
-    EmptyView()
+    Text("👏")
 }
 .dotsTintColors(currentPage: Color, otherPages: Color)
 .wraps(true)
 .dotsHideForSinglePage(true)
+.navigationOrientation(.vertical)
 
 ```
 
 Use our exhaustive input list to customize your views.
 
-Modifier | Description
+Modifier or Initializer | Description
 --- | ---
+`.init(content: () -> Content) -> iPages` | Initializes the page 📃📖 view. 👷‍♀️
+`.init(selection: Binding<Int>?, content: () -> Content) -> iPages` | Initializes the page 📃📖 view with a selection binding. 👷‍♀️
 `.hideDots(hideDots: Bool) -> iPages` | Modifies whether or not the page view should include the standard page control dots. (••••)
 `.wraps(wraps: Bool) -> iPages` | Modifies whether or not the page view should restart at the beginning 🔁 when swiping past the end (and vise-versa)
 `.dotsHideForSinglePage(hide: Bool) -> iPages` | Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️

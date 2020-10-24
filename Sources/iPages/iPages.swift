@@ -34,9 +34,9 @@ public struct iPages: View {
     // Page control
     var pageControlHidesForSinglePage: Bool = false
     var pageControlCurrentPageIndicatorTintColor: UIColor? =
-        UIColor(hue: 0, saturation: 0.00, brightness: 0.80, alpha: 1.0)
+        UIColor(hue: 0, saturation: 0.00, brightness: 0.0, alpha: 1.0)
     var pageControlPageIndicatorTintColor: UIColor? =
-        UIColor(hue: 0, saturation: 0.00, brightness: 0.80, alpha: 0.8)
+        UIColor(hue: 0, saturation: 0.00, brightness: 0.80, alpha: 1.0)
     private var _pageControlBackgroundStyle: Any? = nil
     @available(iOS 14, *)
     var pageControlBackgroundStyle: UIPageControl.BackgroundStyle {
