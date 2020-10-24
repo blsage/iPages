@@ -17,20 +17,13 @@ public struct PageViewBuilder {
     public static func buildBlock<Content : View>(_ content: Content) -> [AnyView] {
         return content.decompose()
     }
-    
-}
-
-extension PageViewBuilder {
-    
-    public static func buildBlock<C1 : View,
-                                  C2 : View>(_ c1: C1, _ c2: C2) -> [AnyView] {
-        return [c1.decompose(),
-                c2.decompose()].flatMap { $0 }
+        
+    public static func buildBlock<C1 : View, C2 : View>(_ c1: C1, _ c2: C2) -> [AnyView] {
+        return [c1.decompose(), c2.decompose()].flatMap { $0 }
     }
     
     public static func buildBlock<C1 : View, C2 : View, C3 : View>(_ c1: C1, _ c2: C2, _ c3: C3) -> [AnyView] {
-        return [c1.decompose(),
-                c2.decompose(), c3.decompose()].flatMap { $0 }
+        return [c1.decompose(), c2.decompose(), c3.decompose()].flatMap { $0 }
     }
     
     public static func buildBlock<C1 : View, C2 : View, C3 : View, C4 : View>(_ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4) -> [AnyView] {
@@ -108,33 +101,25 @@ protocol Decomposable {
 }
 
 extension View {
-    
     static func any(from view: Any) -> AnyView {
         return AnyView(view as! Self)
     }
-    
 }
 
 extension View {
-    
     func decompose() -> [AnyView] {
         if let decomposable = self as? Decomposable {
             return decomposable.subviews()
         }
-        
         if Body.self == Never.self {
             return [AnyView(self)]
         }
-        
         return body.decompose()
     }
-    
 }
 
 extension ForEach: Decomposable where Content: View {
-    
     func subviews() -> [AnyView] {
         return data.map(content).flatMap { $0.decompose() }
     }
-    
 }
