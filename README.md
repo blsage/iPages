@@ -91,7 +91,7 @@ struct ContentView: View {
 
 **Example**: Change the dot colors, enable infinite wrap & hide dots for single page views with the following code block:
 ```swift
-iPages(currentPage: $currentPage) {
+iPages(selection: $currentPage) {
     Text("👏")
 }
 .dotsTintColors(currentPage: Color, otherPages: Color)
