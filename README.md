@@ -105,18 +105,18 @@ Use our exhaustive input list to customize your views.
 
 Modifier or Initializer | Description
 --- | ---
-`.init(content: () -> Content) -> iPages` | Initializes the page 📃📖 view. 👷‍♀️
-`.init(selection: Binding<Int>?, content: () -> Content) -> iPages` | Initializes the page 📃📖 view with a selection binding. 👷‍♀️
-`.hideDots(hideDots: Bool) -> iPages` | Modifies whether or not the page view should include the standard page control dots. (••••)
-`.wraps(wraps: Bool) -> iPages` | Modifies whether or not the page view should restart at the beginning 🔁 when swiping past the end (and vise-versa)
-`.dotsHideForSinglePage(hide: Bool) -> iPages` | Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
-`.dotsTintColors(currentPage: Color, otherPages: Color) -> iPages` | Modifies tint colors 🟡🟢🔴🟣 to be used for the page dots.
-`.dotsBackgroundStyle(style: UIPageControl.BackgroundStyle) -> iPages` | Modifies the background style ⚪️🔘 of the page dots.
-`.dotsAllowContinuousInteraction(allowContinuousInteraction: Bool) -> iPages` | Modifies the continuous interaction settings of the dots. 🔄
-`.dotsAlignment(_ alignment: Alignment) -> iPages` | Modifies the **alignment of the page dots**. 👆 👇
-`.navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation) -> iPages` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
-`.disableBounce(_ disable: Bool) -> iPages` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
-`.interPageSpacing(_ spacing: CGFloat) -> iPages` | Modifies the spacing between the pages. ↔️
+`.init(content: () -> Content)` | Initializes the page 📃📖 view. 👷‍♀️
+`.init(selection: Binding<Int>?, content: () -> Content)` | Initializes the page 📃📖 view with a selection binding. 👷‍♀️
+`.hideDots(hideDots: Bool)` | Modifies whether or not the page view should include the standard page control dots. (••••)
+`.wraps(wraps: Bool)` | Modifies whether or not the page view should restart at the beginning 🔁 when swiping past the end (and vise-versa)
+`.dotsHideForSinglePage(hide: Bool)` | Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
+`.dotsTintColors(currentPage: Color, otherPages: Color)` | Modifies tint colors 🟡🟢🔴🟣 to be used for the page dots.
+`.dotsBackgroundStyle(style: UIPageControl.BackgroundStyle)` | Modifies the background style ⚪️🔘 of the page dots.
+`.dotsAllowContinuousInteraction(allowContinuousInteraction: Bool)` | Modifies the continuous interaction settings of the dots. 🔄
+`.dotsAlignment(_ alignment: Alignment)` | Modifies the **alignment of the page dots**. 👆 👇
+`.navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation)` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
+`.disableBounce(_ disable: Bool)` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
+`.interPageSpacing(_ spacing: CGFloat)` | Modifies the spacing between the pages. ↔️
 
 
 ## Install 

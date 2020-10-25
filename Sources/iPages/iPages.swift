@@ -81,7 +81,7 @@ public struct iPages: View {
             _externalSelection = selection
             hasExternalSelection = true
         } else {
-            _externalSelection = Binding<Int>(get: {0}, set: {_ in})
+            _externalSelection = Binding<Int>(get: { 0 }, set: { _ in })
         }
     }
         
