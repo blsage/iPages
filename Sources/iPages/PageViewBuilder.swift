@@ -123,3 +123,12 @@ extension ForEach: Decomposable where Content: View {
         return data.map(content).flatMap { $0.decompose() }
     }
 }
+
+extension TupleView: Decomposable {
+    func subviews() -> [AnyView] {
+        let mirror = Mirror(reflecting: self)
+        let tuple = mirror.children.first!.value
+        let tupleMirror = Mirror(reflecting: tuple)
+        return tupleMirror.children.map { AnyView(_fromValue: $0.value)! }
+    }
+}
