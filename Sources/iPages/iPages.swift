@@ -5,7 +5,7 @@ import UIKit
 /// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI.
 ///
 /// Binds to a zero-indexed 0️⃣1️⃣2️⃣ "current page" `Int`eger.
-public struct iPages<Content: View>: View {
+public struct iPages: View {
     private var viewControllers: [UIViewController]
     
     @State private var internalSelection: Int = 0
@@ -74,9 +74,9 @@ public struct iPages<Content: View>: View {
     ///   - selection: A binding to the page that the user is currently on ⌚️, zero indexed (meaning page 1 is 0, page 2 is 1, etc.)
     ///   - content: The ordered view builder of `View`s to appear in the page view 📑
     public init(selection: Binding<Int>? = nil,
-                @ViewBuilder content: () -> Content)
+                @PageViewBuilder content: () -> [AnyView])
     {
-        viewControllers = content().decompose().map { UIHostingController(rootView: $0) }
+        viewControllers = content().map { UIHostingController(rootView: $0) }
         if let selection = selection {
             _externalSelection = selection
             hasExternalSelection = true
