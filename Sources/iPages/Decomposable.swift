@@ -20,15 +20,9 @@ extension View {
 extension View {
     func decompose() -> [AnyView] {
         if let decomposable = self as? Decomposable {
-            print("1")
             return decomposable.subviews()
         }
-        if Body.self == Never.self {
-            print("2")
-            return [AnyView(self)]
-        }
-        print("3")
-        return body.decompose()
+        return [AnyView(self)]
     }
 }
 
