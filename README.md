@@ -1,5 +1,6 @@
 <h1 align="center"> iPages📖</p>
 <h3 align="center"> Quickly implement swipable page views in iOS. 📝 </h3>
+
 <p align="center">
     <strong><a href="#get-started">Get Started</a></strong> |
     <strong><a href="#examples">Examples</a></strong> |
