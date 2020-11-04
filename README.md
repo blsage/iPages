@@ -133,5 +133,5 @@ Commercial users, please note, this license is often <b><a href="https://en.wiki
 
 In order to offer iPages safely to our commercial friends we made it super easy to purchase a lifetime, full-use license for $0.99. Code on worry free 😁 
 
-<p align="center"><a href="https://general099748.typeform.com/to/p5FtTKBj"> <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/Purchase%20License.png" width="300"> </a> </p>
+<p align="center"><a href="https://general099748.typeform.com/to/p5FtTKBj#package=iPages"> <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/Purchase%20License.png" width="300"> </a> </p>
 
