@@ -17,13 +17,15 @@ struct PageViewController: UIViewControllerRepresentable {
     var navigationOrientation: UIPageViewController.NavigationOrientation
     var bounce: Bool
     private var interPageSpacing: CGFloat = 0
+    private var animated: Bool
     
     init(controllers: [UIViewController],
          currentPage: Binding<Int>,
          wraps: Bool,
          navigationOrientation: UIPageViewController.NavigationOrientation,
          bounce: Bool,
-         interPageSpacing: CGFloat)
+         interPageSpacing: CGFloat,
+         animated: Bool)
     {
         self.controllers = controllers
         self._currentPage = currentPage
@@ -31,6 +33,7 @@ struct PageViewController: UIViewControllerRepresentable {
         self.navigationOrientation = navigationOrientation
         self.bounce = bounce
         self.interPageSpacing = interPageSpacing
+        self.animated = animated
     }
     
     func makeCoordinator() -> Coordinator {
@@ -68,7 +71,7 @@ struct PageViewController: UIViewControllerRepresentable {
         pageViewController.setViewControllers(
             [controllers[currentPage]],
             direction: currentPage > previousPage ? .forward : .reverse,
-            animated: true)
+            animated: animated)
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {

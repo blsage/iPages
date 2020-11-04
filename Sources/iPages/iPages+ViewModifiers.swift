@@ -113,4 +113,10 @@ public extension iPages {
         view.pageViewControllerInterPageSpacing = spacing
         return view
     }
+    
+    func animated(_ animated: Bool) -> iPages {
+        var view = self
+        view.pageViewAnimated = animated
+        return view
+    }
 }

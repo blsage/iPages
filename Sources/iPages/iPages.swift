@@ -22,13 +22,15 @@ public struct iPages<Content: View>: View {
     var pageViewControllerNavigationOrientation: UIPageViewController.NavigationOrientation = .horizontal
     var pageViewControllerBounce: Bool = true
     var pageViewControllerInterPageSpacing: CGFloat = 0
+    var pageViewAnimated: Bool = true
     private var pageViewController: PageViewController {
         .init(controllers: viewControllers,
               currentPage: selection,
               wraps: pageViewControllerWraps,
               navigationOrientation: pageViewControllerNavigationOrientation,
               bounce: pageViewControllerBounce,
-              interPageSpacing: pageViewControllerInterPageSpacing)
+              interPageSpacing: pageViewControllerInterPageSpacing,
+              animated: pageViewAnimated)
     }
     
     // Page control
