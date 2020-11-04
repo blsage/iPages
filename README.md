@@ -118,6 +118,7 @@ Modifier or Initializer | Description
 `.navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation)` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
 `.disableBounce(_ disable: Bool)` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
 `.interPageSpacing(_ spacing: CGFloat)` | Modifies the spacing between the pages. ↔️
+`.animated(_ animated: Bool)` | Modifies whether the the pages jump with animation if the selection binding changes programmatically
 
 
 ## Install 
