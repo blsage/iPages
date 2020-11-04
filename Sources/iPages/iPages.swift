@@ -6,7 +6,7 @@ import UIKit
 ///
 /// Binds to a zero-indexed 0️⃣1️⃣2️⃣ "current page" `Int`eger.
 public struct iPages<Content: View>: View {
-    private var viewControllers: [UIViewController]
+    @State private var viewControllers: [UIViewController]
     
     @State private var internalSelection: Int = 0
     @Binding private var externalSelection: Int
@@ -78,7 +78,7 @@ public struct iPages<Content: View>: View {
     public init(selection: Binding<Int>? = nil,
                 @ViewBuilder content: () -> Content)
     {
-        viewControllers = content().decompose().map { UIHostingController(rootView: $0) }
+        _viewControllers = State(initialValue: content().decompose().map { UIHostingController(rootView: $0) })
         if let selection = selection {
             _externalSelection = selection
             hasExternalSelection = true

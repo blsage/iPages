@@ -71,7 +71,7 @@ struct PageViewController: UIViewControllerRepresentable {
         pageViewController.setViewControllers(
             [controllers[currentPage]],
             direction: currentPage > previousPage ? .forward : .reverse,
-            animated: currentPage == previousPage ? false : animated)
+            animated: animated)
     }
     
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
