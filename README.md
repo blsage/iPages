@@ -26,7 +26,7 @@ import iPages
 struct ContentView: View {
     var body: some View {
         iPages {
-            Text("iPages")
+            Text("iPages 🤑")
             Color.pink
         }
     }
@@ -38,7 +38,8 @@ struct ContentView: View {
 
 ## Examples
 ### Marketing Materials
-<img src="https://iswiftui.com/assets/img/iPagesDemo2Light.gif" width="200">
+
+<img align="right" src="https://iswiftui.com/assets/img/iPagesDemo2Light.gif" width="250">
 
 Use `iGraphicsView` to demo marketing slides.
 
@@ -58,12 +59,13 @@ struct ContentView: View {
 }
 ```
 
+<br clear="right"/>
+<br/>
 
-### Shopping App
-<img src="https://iswiftui.com/assets/img/iPagesDemo1Dark.gif" width="200">
-Hide the bottom dots & add infinite scroll to remove context.
+<h3 align="left">Shopping App</h3>
+<p align="left">If you want, you can pass in your own optional selection binding to `iPages`. Hide the bottom dots & add infinite scroll to remove context.</p>
 
-If you want, you can pass in your own optional selection binding to `iPages`.
+<img align="left" src="https://iswiftui.com/assets/img/iPagesDemo1Dark.gif" width="250">
 
 ```swift
 import SwiftUI
@@ -86,8 +88,12 @@ struct ContentView: View {
 }
 ```
 
+<br clear="left"/>
+<br/>
+<br/>
 
 ## Customize
+
 `iPages` takes a trailing view builder of ordered views. You can also optionally pass in your own page index binding called `selection:`, to let you build your own page control, or however you want to use it. `iPages` supports a variety of custom modifiers. All customizations are built into our modifiers.
 
 **Example**: Change the dot colors, enable infinite wrap & hide dots for single page views with the following code block:
