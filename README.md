@@ -122,14 +122,26 @@ Use our exhaustive input list to customize your views.
 🔃 | `.dotsAllowContinuousInteraction(_ allowContinuousInteraction: Bool)` | Modifies the continuous interaction settings of the dots. 🔄
 ↔️ | `.dotsAlignment(_:)` | Modifies the **alignment of the page dots**. 👆 👇
 ↕️ | `.navigationOrientation(_:)` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
-🦿 | `.disableBounce(_ disable: Bool)` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
-↔️ | `.interPageSpacing(_ spacing: CGFloat)` | Modifies the spacing between the pages. ↔️
-🎥 | `.animated(_ animated: Bool)` | Modifies whether the the pages animate the slide if the `selection` binding changes. 🎥
+🦿 | `.disableBounce(_:)` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
+↔️ | `.interPageSpacing(_:)` | Modifies the spacing between the pages. ↔️
+🎥 | `.animated(_:)` | Modifies whether the the pages animate the slide if the `selection` binding changes. 🎥
 
 
 ## Install 
 Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀
 
+## Help
+As always, if you have any questions about iPhoneNumberField, we are available 24/7 to help.
+
+<div align="center">
+
+| | Reach us at | |
+--- |:---:|:---:
+📞 | +1 (415) 735-4464 | **Call**
+📧 | hello@iswiftui.com | **Email**
+📲 | +1 (415) 735-4464 | **Text**
+
+</div>
 
 ## Usage
 <b>iPages is FREE and open-source for individuals, and will remain that way forever. </b>
