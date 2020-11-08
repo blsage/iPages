@@ -37,7 +37,7 @@ struct ContentView: View {
 
 
 ## Examples
-### Marketing Materials
+### Marketing Materials 💸
 
 <img align="right" src="https://iswiftui.com/assets/img/iPagesDemo2Light.gif" width="250">
 
@@ -62,8 +62,8 @@ struct ContentView: View {
 <br clear="right"/>
 <br/>
 
-<h3 align="left">Shopping App</h3>
-<p align="left">If you want, you can pass in your own optional selection binding to `iPages`. Hide the bottom dots & add infinite scroll to remove context.</p>
+<h3 align="left">Shopping App 🛍</h3>
+<p align="left">If you want, you can pass in your own optional selection binding to iPages. Hide the bottom dots & add infinite scroll to remove context.</p>
 
 <img align="left" src="https://iswiftui.com/assets/img/iPagesDemo1Dark.gif" width="250">
 
@@ -92,7 +92,7 @@ struct ContentView: View {
 <br/>
 <br/>
 
-## Customize
+## Customize 🎀
 
 `iPages` takes a trailing view builder of ordered views. You can also optionally pass in your own page index binding called `selection:`, to let you build your own page control, or however you want to use it. `iPages` supports a variety of custom modifiers. All customizations are built into our modifiers.
 
@@ -110,21 +110,21 @@ iPages(selection: $currentPage) {
 
 Use our exhaustive input list to customize your views.
 
-Modifier or Initializer | Description
---- | ---
-`.init(content: () -> Content)` | Initializes the page 📃📖 view. 👷‍♀️
-`.init(selection: Binding<Int>?, content: () -> Content)` | Initializes the page 📃📖 view with a selection binding. 👷‍♀️
-`.hideDots(_ hideDots: Bool)` | Modifies whether or not the page view should include the standard page control dots. (••••)
-`.wraps(_ wraps: Bool)` | Modifies whether or not the page view should restart at the beginning 🔁 when swiping past the end (and vise-versa)
-`.dotsHideForSinglePage(_ hide: Bool)` | Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
-`.dotsTintColors(currentPage: Color, otherPages: Color)` | Modifies tint colors 🟡🟢🔴🟣 to be used for the page dots.
-`.dotsBackgroundStyle(_ style: UIPageControl.BackgroundStyle)` | Modifies the background style ⚪️🔘 of the page dots.
-`.dotsAllowContinuousInteraction(_ allowContinuousInteraction: Bool)` | Modifies the continuous interaction settings of the dots. 🔄
-`.dotsAlignment(_ alignment: Alignment)` | Modifies the **alignment of the page dots**. 👆 👇
-`.navigationOrientation(_ orientation: UIPageViewController.NavigationOrientation)` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
-`.disableBounce(_ disable: Bool)` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
-`.interPageSpacing(_ spacing: CGFloat)` | Modifies the spacing between the pages. ↔️
-`.animated(_ animated: Bool)` | Modifies whether the the pages animate the slide if the `selection` binding changes. 🎥
+| | Modifier or Initializer | Description
+| --- | --- | ---
+👷‍♀️ | `.init(content:)` | Initializes the page 📃📖 view.
+👷‍♂️ | `.init(selection:content:)` | Initializes the page 📃📖 view with a selection binding.
+⏺ | `.hideDots(_:)` | Modifies whether or not the page view should include the standard page control dots. (••••)
+🔄 | `.wraps(_:)` | Modifies whether or not the page view should restart at the beginning 🔁 when swiping past the end (and vise-versa)
+1️⃣ | `.dotsHideForSinglePage(_:)` | Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
+🎨 | `.dotsTintColors(currentPage: Color, otherPages: Color)` | Modifies tint colors 🟡🟢🔴🟣 to be used for the page dots.
+🔘 | `.dotsBackgroundStyle(_:)` | Modifies the background style ⚪️🔘 of the page dots.
+🔃 | `.dotsAllowContinuousInteraction(_ allowContinuousInteraction: Bool)` | Modifies the continuous interaction settings of the dots. 🔄
+↔️ | `.dotsAlignment(_:)` | Modifies the **alignment of the page dots**. 👆 👇
+↕️ | `.navigationOrientation(_:)` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
+🦿 | `.disableBounce(_ disable: Bool)` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
+↔️ | `.interPageSpacing(_ spacing: CGFloat)` | Modifies the spacing between the pages. ↔️
+🎥 | `.animated(_ animated: Bool)` | Modifies whether the the pages animate the slide if the `selection` binding changes. 🎥
 
 
 ## Install 
