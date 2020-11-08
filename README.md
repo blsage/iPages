@@ -119,7 +119,7 @@ Use our exhaustive input list to customize your views.
 1️⃣ | `.dotsHideForSinglePage(_:)` | Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
 🎨 | `.dotsTintColors(currentPage: Color, otherPages: Color)` | Modifies tint colors 🟡🟢🔴🟣 to be used for the page dots.
 🔘 | `.dotsBackgroundStyle(_:)` | Modifies the background style ⚪️🔘 of the page dots.
-🔃 | `.dotsAllowContinuousInteraction(_ allowContinuousInteraction: Bool)` | Modifies the continuous interaction settings of the dots. 🔄
+🔃 | `.dotsAllowContinuousInteraction(_: Bool)` | Modifies the continuous interaction settings of the dots. 🔄
 ↔️ | `.dotsAlignment(_:)` | Modifies the **alignment of the page dots**. 👆 👇
 ↕️ | `.navigationOrientation(_:)` | Modifies the navigation **orientation** of the page view. ↔️ ↕️
 🦿 | `.disableBounce(_:)` | Disables the **bounce** settings of the page view. This is especially useful for scroll views.
