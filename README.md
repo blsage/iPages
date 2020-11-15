@@ -131,7 +131,7 @@ Use our exhaustive input list to customize your views.
 Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀
 
 ## Help
-As always, if you have any questions about iPhoneNumberField, we are available 24/7 to help.
+As always, if you have any questions about iPages, we are available 24/7 to help.
 
 <div align="center">
 
