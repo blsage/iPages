@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/benjaminsage/iColor.git",
         "state": {
           "branch": null,
-          "revision": "3c2ae81be776ba4b26a0ca223f819c4d7676b5d4",
-          "version": "0.1.2"
+          "revision": "586b4307cc9870dc170664a747b915c3fcd507c3",
+          "version": "0.1.3"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/benjaminsage/iGraphics.git",
         "state": {
           "branch": null,
-          "revision": "ee1b64e75aea47f9e6083ccc163d49496bdf3b6a",
-          "version": "0.0.6"
+          "revision": "2b0714f7fe333621365854ebdce44ea2db866405",
+          "version": "0.0.7"
         }
       }
     ]

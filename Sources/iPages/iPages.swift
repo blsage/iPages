@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 
 @available(iOS 13.0, *)
+@available(macOS 10.15, *)
 /// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI.
 ///
 /// Binds to a zero-indexed 0️⃣1️⃣2️⃣ "current page" `Int`eger.
