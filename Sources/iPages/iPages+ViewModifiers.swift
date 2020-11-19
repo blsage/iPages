@@ -12,9 +12,10 @@ import UIKit
 import AppKit
 #endif
 
+#if os(iOS)
+
 public extension iPages {
     
-    #if os(iOS)
     /// Modifies whether or not the page view should include the standard page control **dots**. (••••)
     /// - Parameter hideDots: Whether the page view should hide the page dots at the bottom 👇
     /// - Returns: A page view with the the desired presence or absence of dots
@@ -118,7 +119,6 @@ public extension iPages {
         view.pageViewControllerWraps = wraps
         return view
     }
-    #endif
     
     func animated(_ animated: Bool) -> iPages {
         var view = self
@@ -126,3 +126,5 @@ public extension iPages {
         return view
     }
 }
+
+#endif
