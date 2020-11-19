@@ -9,6 +9,7 @@ import iGraphics
 import iColor
 
 #if os(iOS)
+@available(iOS 14, *)
 struct CustomDotsExample: View {
     @State var currentPage: Int = 0
     var body: some View {
