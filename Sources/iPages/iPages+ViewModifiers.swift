@@ -39,13 +39,27 @@ public extension iPages {
     ///   - currentPage: The tint color to be used for the current page dot ⬇️
     ///   - otherPages: The Tint color to be used for dots which are not the current page⬅️➡️
     /// - Returns: A page view with the desired dot colors
+    @available(iOS 14, *)
     func dotsTintColors(currentPage: Color, otherPages: Color) -> iPages {
         var view = self
-        view.pageControlCurrentPageIndicatorTintColor = UIColor.from(color: currentPage)
-        view.pageControlPageIndicatorTintColor = UIColor.from(color: otherPages)
+        view.pageControlCurrentPageIndicatorTintColor = UIColor(currentPage)
+        view.pageControlPageIndicatorTintColor = UIColor(otherPages)
         return view
     }
     
+    /// Modifies **tint colors** 🟡🟢🔴🟣 to be used for the page dots.
+    /// - Parameters:
+    ///   - currentPage: The tint color to be used for the current page dot ⬇️
+    ///   - otherPages: The Tint color to be used for dots which are not the current page⬅️➡️
+    /// - Returns: A page view with the desired dot colors
+    @available(iOS, introduced: 13, obsoleted: 14)
+    func dotsTintColors(currentPage: UIColor, otherPages: UIColor) -> iPages {
+        var view = self
+        view.pageControlCurrentPageIndicatorTintColor = currentPage
+        view.pageControlPageIndicatorTintColor = otherPages
+        return view
+    }
+
     /// Modifies the **background style** ⚪️🔘  of the page dots.
     /// - Parameter style: The style of the background of the page dots
     /// - Returns: A page view with the desired background style of the dots

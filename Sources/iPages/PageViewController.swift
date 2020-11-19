@@ -20,7 +20,7 @@ struct PageViewController: ControllerRepresentable {
     #if os(iOS)
     var navigationOrientation: UIPageViewController.NavigationOrientation
     var bounce: Bool
-    private var wraps: Bool
+    var wraps: Bool
     private var interPageSpacing: CGFloat = 0
     #endif
     

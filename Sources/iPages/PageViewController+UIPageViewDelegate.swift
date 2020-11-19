@@ -7,7 +7,7 @@
 
 #if os(iOS)
 
-import Foundation
+import UIKit
 
 extension PageViewController {
     class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
