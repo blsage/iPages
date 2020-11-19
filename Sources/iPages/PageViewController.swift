@@ -102,8 +102,19 @@ struct PageViewController: ControllerRepresentable {
         return nsPageController
     }
     
-    func updateNSViewController(_ nsViewController: NSPageController, context: Context) {
+    func updateNSViewController(_ nsPageController: NSPageController, context: Context) {
+        context.coordinator.parent = self
         
+        if animated {
+            NSAnimationContext.runAnimationGroup({ NSAnimationContext in
+                nsPageController.animator().selectedIndex = currentPage
+            }, completionHandler: {
+                nsPageController.completeTransition()
+            })
+        } else {
+            nsPageController.selectedIndex = currentPage
+            nsPageController.completeTransition()
+        }
     }
     #endif
 }
