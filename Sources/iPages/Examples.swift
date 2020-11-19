@@ -8,7 +8,7 @@ import SwiftUI
 import iGraphics
 import iColor
 
-@available(iOS 14, *)
+#if os(iOS)
 struct CustomDotsExample: View {
     @State var currentPage: Int = 0
     var body: some View {
@@ -46,3 +46,4 @@ struct MarketingSwipeViewExample: View {
         }
     }
 }
+#endif

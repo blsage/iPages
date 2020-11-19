@@ -6,25 +6,21 @@
 //
 
 import SwiftUI
+#if os(iOS)
 import UIKit
+#else
+import AppKit
+#endif
 
-@available(iOS 13.0, *)
 public extension iPages {
+    
+    #if os(iOS)
     /// Modifies whether or not the page view should include the standard page control **dots**. (••••)
     /// - Parameter hideDots: Whether the page view should hide the page dots at the bottom 👇
     /// - Returns: A page view with the the desired presence or absence of dots
     func hideDots(_ hideDots: Bool) -> iPages {
         var view = self
         view.showsPageControl = !hideDots
-        return view
-    }
-    
-    /// Modifies whether or not the page view should **restart at the beginning** 🔁 when swiping past the end (and vise-versa).
-    /// - Parameter wraps: Whether or not the page view wraps infinitely 🔄
-    /// - Returns: A page view with the desired infinite wrap
-    func wraps(_ wraps: Bool) -> iPages {
-        var view = self
-        view.pageViewControllerWraps = wraps
         return view
     }
     
@@ -79,7 +75,7 @@ public extension iPages {
         view.pageControlAlignment = alignment
         return view
     }
-    
+        
     /// Modifies the navigation **orientation** of the page view. ↔️ ↕️
     ///
     /// By default, moves the page dots to the trailing edge
@@ -113,6 +109,16 @@ public extension iPages {
         view.pageViewControllerInterPageSpacing = spacing
         return view
     }
+    
+    /// Modifies whether or not the page view should **restart at the beginning** 🔁 when swiping past the end (and vise-versa).
+    /// - Parameter wraps: Whether or not the page view wraps infinitely 🔄
+    /// - Returns: A page view with the desired infinite wrap
+    func wraps(_ wraps: Bool) -> iPages {
+        var view = self
+        view.pageViewControllerWraps = wraps
+        return view
+    }
+    #endif
     
     func animated(_ animated: Bool) -> iPages {
         var view = self
