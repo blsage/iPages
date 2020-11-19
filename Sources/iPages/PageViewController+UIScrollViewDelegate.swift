@@ -5,9 +5,9 @@
 //  Created by Benjamin Sage on 10/23/20.
 //
 
+#if os(iOS)
 import UIKit
 
-@available(iOS 13.0, *)
 extension PageViewController.Coordinator: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -38,3 +38,5 @@ extension PageViewController.Coordinator: UIScrollViewDelegate {
         }
     }
 }
+
+#endif

@@ -7,7 +7,8 @@ import SwiftUI
 let package = Package(
     name: "iPages",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v13),
+        .macOS(.v10_15)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.

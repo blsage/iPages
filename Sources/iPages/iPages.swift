@@ -1,12 +1,15 @@
 import SwiftUI
+#if os(iOS)
 import UIKit
+#else
+import AppKit
+#endif
 
-@available(iOS 13.0, *)
 /// A `View` wrapper for `UIPageViewController` which lets you write 📝 and use 🔨 a page view in SwiftUI.
 ///
 /// Binds to a zero-indexed 0️⃣1️⃣2️⃣ "current page" `Int`eger.
 public struct iPages<Content: View>: View {
-    @State private var viewControllers: [UIViewController]
+    @State private var viewControllers: [ViewController]
     
     @State private var internalSelection: Int = 0
     @Binding private var externalSelection: Int
@@ -14,26 +17,35 @@ public struct iPages<Content: View>: View {
         hasExternalSelection ? $externalSelection : $internalSelection
     }
     private var hasExternalSelection = false
-    
-    var showsPageControl: Bool = true
-    
+        
     // Page view controller
     var pageViewControllerWraps: Bool = false
+    var pageViewAnimated: Bool = true
+    #if os(iOS)
     var pageViewControllerNavigationOrientation: UIPageViewController.NavigationOrientation = .horizontal
     var pageViewControllerBounce: Bool = true
     var pageViewControllerInterPageSpacing: CGFloat = 0
-    var pageViewAnimated: Bool = true
+    #endif
     private var pageViewController: PageViewController {
-        .init(controllers: viewControllers,
-              currentPage: selection,
-              wraps: pageViewControllerWraps,
-              navigationOrientation: pageViewControllerNavigationOrientation,
-              bounce: pageViewControllerBounce,
-              interPageSpacing: pageViewControllerInterPageSpacing,
-              animated: pageViewAnimated)
+        #if os(iOS)
+        return .init(controllers: viewControllers,
+                     currentPage: selection,
+                     wraps: pageViewControllerWraps,
+                     navigationOrientation: pageViewControllerNavigationOrientation,
+                     bounce: pageViewControllerBounce,
+                     interPageSpacing: pageViewControllerInterPageSpacing,
+                     animated: pageViewAnimated)
+        #else
+        return .init(controllers: viewControllers,
+                     currentPage: selection,
+                     animated: pageViewAnimated)
+        #endif
     }
     
     // Page control
+    var pageControlAlignment: Alignment = .bottom
+    #if os(iOS)
+    var showsPageControl: Bool = true
     var pageControlHidesForSinglePage: Bool = false
     var pageControlCurrentPageIndicatorTintColor: UIColor?
     var pageControlPageIndicatorTintColor: UIColor?
@@ -51,7 +63,6 @@ public struct iPages<Content: View>: View {
         }
     }
     var pageControlAllowsContinuousInteraction: Bool = false
-    var pageControlAlignment: Alignment = .bottom
     private var pageControl: PageControl {
         if #available(iOS 14.0, *) {
             return .init(numberOfPages: viewControllers.count,
@@ -70,6 +81,7 @@ public struct iPages<Content: View>: View {
                          allowsContinuousInteraction: pageControlAllowsContinuousInteraction)
         }
     }
+    #endif
     
     /// Initializes the page 📃📖 view. 👷‍♀️
     /// - Parameters:
@@ -78,7 +90,7 @@ public struct iPages<Content: View>: View {
     public init(selection: Binding<Int>? = nil,
                 @ViewBuilder content: () -> Content)
     {
-        _viewControllers = State(initialValue: content().decompose().map { UIHostingController(rootView: $0) })
+        _viewControllers = State(initialValue: content().decompose().map { HostingController(rootView: $0) })
         if let selection = selection {
             _externalSelection = selection
             hasExternalSelection = true
@@ -92,6 +104,7 @@ public struct iPages<Content: View>: View {
     public var body: some View {
         ZStack(alignment: pageControlAlignment) {
             pageViewController
+            #if os(iOS)
             if showsPageControl {
                 switch pageControlAlignment {
                 case .leading, .trailing:
@@ -108,6 +121,7 @@ public struct iPages<Content: View>: View {
                         .padding(.vertical)
                 }
             }
+            #endif
         }
     }
 }

@@ -6,20 +6,30 @@
 //
 
 import SwiftUI
+#if os(iOS)
 import UIKit
+#else
+import AppKit
+#endif
 
-@available(iOS 13.0, *)
-struct PageViewController: UIViewControllerRepresentable {
-    var controllers: [UIViewController]
+struct PageViewController: ControllerRepresentable {
+    var controllers: [ViewController]
     @Binding var currentPage: Int
-    
-    private var wraps: Bool
-    var navigationOrientation: UIPageViewController.NavigationOrientation
-    var bounce: Bool
-    private var interPageSpacing: CGFloat = 0
     private var animated: Bool
     
-    init(controllers: [UIViewController],
+    #if os(iOS)
+    var navigationOrientation: UIPageViewController.NavigationOrientation
+    var bounce: Bool
+    var wraps: Bool
+    private var interPageSpacing: CGFloat = 0
+    #endif
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+        
+    #if os(iOS)
+    init(controllers: [ViewController],
          currentPage: Binding<Int>,
          wraps: Bool,
          navigationOrientation: UIPageViewController.NavigationOrientation,
@@ -34,10 +44,6 @@ struct PageViewController: UIViewControllerRepresentable {
         self.bounce = bounce
         self.interPageSpacing = interPageSpacing
         self.animated = animated
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
     }
     
     func makeUIViewController(context: Context) -> UIPageViewController {
@@ -73,60 +79,42 @@ struct PageViewController: UIViewControllerRepresentable {
             direction: currentPage > previousPage ? .forward : .reverse,
             animated: animated)
     }
+    #else
+    init(controllers: [ViewController],
+         currentPage: Binding<Int>,
+         animated: Bool) {
+        self.controllers = controllers
+        self._currentPage = currentPage
+        self.animated = animated
+    }
     
-    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-        var parent: PageViewController
+    func makeNSViewController(context: Context) -> NSPageController {
+        let nsPageController = NSPageController()
+        nsPageController.view = NSView()
         
-        init(_ pageViewController: PageViewController) {
-            self.parent = pageViewController
-        }
+        nsPageController.arrangedObjects = Array(0..<controllers.count)
+        nsPageController.navigateForward(nil)
+        nsPageController.selectedIndex = currentPage
+        nsPageController.transitionStyle = .horizontalStrip
         
-        func pageViewController(
-            _ pageViewController: UIPageViewController,
-            viewControllerBefore viewController: UIViewController) -> UIViewController?
-        {
-            guard let index = parent.controllers.firstIndex(of: viewController) else {
-                return nil
-            }
-            if index == 0 {
-                if parent.wraps {
-                    return parent.controllers.last
-                } else {
-                    return nil
-                }
-            }
-            return parent.controllers[index - 1]
-        }
+        nsPageController.delegate = context.coordinator
         
-        func pageViewController(
-            _ pageViewController: UIPageViewController,
-            viewControllerAfter viewController: UIViewController) -> UIViewController?
-        {
-            guard let index = parent.controllers.firstIndex(of: viewController) else {
-                return nil
-            }
-            if index + 1 == parent.controllers.count {
-                if parent.wraps {
-                    return parent.controllers.first
-                } else {
-                    return nil
-                }
-            }
-            return parent.controllers[index + 1]
-        }
+        return nsPageController
+    }
+    
+    func updateNSViewController(_ nsPageController: NSPageController, context: Context) {
+        context.coordinator.parent = self
         
-        func pageViewController(
-            _ pageViewController: UIPageViewController,
-            didFinishAnimating finished: Bool,
-            previousViewControllers: [UIViewController],
-            transitionCompleted completed: Bool)
-        {
-            if completed,
-               let visibleViewController = pageViewController.viewControllers?.first,
-               let index = parent.controllers.firstIndex(of: visibleViewController)
-            {
-                parent.currentPage = index
-            }
+        if animated {
+            NSAnimationContext.runAnimationGroup({ NSAnimationContext in
+                nsPageController.animator().selectedIndex = currentPage
+            }, completionHandler: {
+                nsPageController.completeTransition()
+            })
+        } else {
+            nsPageController.selectedIndex = currentPage
+            nsPageController.completeTransition()
         }
     }
+    #endif
 }

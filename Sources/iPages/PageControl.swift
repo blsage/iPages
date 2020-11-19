@@ -5,10 +5,11 @@
 //  Created by Benjamin Sage on 10/23/20.
 //
 
+#if os(iOS)
+
 import SwiftUI
 import UIKit
 
-@available(iOS 13.0, *)
 struct PageControl: UIViewRepresentable {
     private var numberOfPages: Int
     @Binding private var currentPage: Int
@@ -106,3 +107,5 @@ struct PageControl: UIViewRepresentable {
         }
     }
 }
+
+#endif
