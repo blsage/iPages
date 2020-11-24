@@ -12,8 +12,6 @@ import UIKit
 import AppKit
 #endif
 
-#if os(iOS)
-
 public extension iPages {
     
     /// Modifies whether or not the page view should include the standard page control **dots**. (••••)
@@ -25,6 +23,7 @@ public extension iPages {
         return view
     }
     
+    #if os(iOS)
     /// Modifies whether the page dots are hidden when there is only one page. 1️⃣⤵️
     /// - Parameter hide: Whether the page dots are hidden when there is only one page
     /// - Returns: A page view with the desired dots hiding with one page settings
@@ -33,6 +32,7 @@ public extension iPages {
         view.pageControlHidesForSinglePage = hide
         return view
     }
+    #endif
     
     /// Modifies **tint colors** 🟡🟢🔴🟣 to be used for the page dots.
     /// - Parameters:
@@ -42,11 +42,17 @@ public extension iPages {
     @available(iOS 14, *)
     func dotsTintColors(currentPage: Color, otherPages: Color) -> iPages {
         var view = self
+        #if os(iOS)
         view.pageControlCurrentPageIndicatorTintColor = UIColor(currentPage)
         view.pageControlPageIndicatorTintColor = UIColor(otherPages)
+        #else
+        view.pageControlCurrentPageIndicatorTintColor = currentPage
+        view.pageControlPageIndicatorTintColor = otherPages
+        #endif
         return view
     }
     
+    #if os(iOS)
     /// Modifies **tint colors** 🟡🟢🔴🟣 to be used for the page dots.
     /// - Parameters:
     ///   - currentPage: The tint color to be used for the current page dot ⬇️
@@ -69,7 +75,7 @@ public extension iPages {
         view.pageControlBackgroundStyle = style
         return view
     }
-    
+        
     /// Modifies the continuous interaction settings of the dots. 🔄
     /// - Parameter allowContinuousInteraction: Whether the dots allow continuous interaction
     /// - Returns: A page view with the desired continuous interaction settings of the page dots
@@ -79,7 +85,8 @@ public extension iPages {
         view.pageControlAllowsContinuousInteraction = allowContinuousInteraction
         return view
     }
-    
+    #endif
+        
     /// Modifies the **alignment of the page dots**. 👆 👇
     ///
     /// *Trailing* and *leading* alignments will cause the page dots to rotate vertical
@@ -91,6 +98,7 @@ public extension iPages {
         return view
     }
         
+    #if os(iOS)
     /// Modifies the navigation **orientation** of the page view. ↔️ ↕️
     ///
     /// By default, moves the page dots to the trailing edge
@@ -139,6 +147,5 @@ public extension iPages {
         view.pageViewAnimated = animated
         return view
     }
+    #endif
 }
-
-#endif

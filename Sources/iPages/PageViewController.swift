@@ -15,12 +15,12 @@ import AppKit
 struct PageViewController: ControllerRepresentable {
     var controllers: [ViewController]
     @Binding var currentPage: Int
-    private var animated: Bool
     
     #if os(iOS)
+    private var animated: Bool
+    var wraps: Bool
     var navigationOrientation: UIPageViewController.NavigationOrientation
     var bounce: Bool
-    var wraps: Bool
     private var interPageSpacing: CGFloat = 0
     #endif
     
@@ -81,11 +81,9 @@ struct PageViewController: ControllerRepresentable {
     }
     #else
     init(controllers: [ViewController],
-         currentPage: Binding<Int>,
-         animated: Bool) {
+         currentPage: Binding<Int>) {
         self.controllers = controllers
         self._currentPage = currentPage
-        self.animated = animated
     }
     
     func makeNSViewController(context: Context) -> NSPageController {
@@ -105,16 +103,11 @@ struct PageViewController: ControllerRepresentable {
     func updateNSViewController(_ nsPageController: NSPageController, context: Context) {
         context.coordinator.parent = self
         
-        if animated {
-            NSAnimationContext.runAnimationGroup({ NSAnimationContext in
-                nsPageController.animator().selectedIndex = currentPage
-            }, completionHandler: {
-                nsPageController.completeTransition()
-            })
-        } else {
-            nsPageController.selectedIndex = currentPage
+        NSAnimationContext.runAnimationGroup({ NSAnimationContext in
+            nsPageController.animator().selectedIndex = currentPage
+        }, completionHandler: {
             nsPageController.completeTransition()
-        }
+        })
     }
     #endif
 }

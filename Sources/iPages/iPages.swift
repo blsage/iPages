@@ -37,16 +37,20 @@ public struct iPages<Content: View>: View {
                      animated: pageViewAnimated)
         #else
         return .init(controllers: viewControllers,
-                     currentPage: selection,
-                     animated: pageViewAnimated)
+                     currentPage: selection)
         #endif
     }
     
     // Page control
     var pageControlAlignment: Alignment = .bottom
-    #if os(iOS)
     var showsPageControl: Bool = true
     var pageControlHidesForSinglePage: Bool = false
+    #if os(macOS)
+    var pageControlCurrentPageIndicatorTintColor: Color?
+    var pageControlPageIndicatorTintColor: Color?
+    #endif
+    
+    #if os(iOS)
     var pageControlCurrentPageIndicatorTintColor: UIColor?
     var pageControlPageIndicatorTintColor: UIColor?
     private var _pageControlBackgroundStyle: Any? = nil
@@ -81,6 +85,14 @@ public struct iPages<Content: View>: View {
                          allowsContinuousInteraction: pageControlAllowsContinuousInteraction)
         }
     }
+    #else
+    private var ipageControl: iPageControl {
+        .init(numberOfPages: viewControllers.count,
+              currentPage: selection,
+              hidesForSinglePage: pageControlHidesForSinglePage,
+              pageIndicatorTintColor: pageControlPageIndicatorTintColor,
+              currentPageIndicatorTintColor: pageControlCurrentPageIndicatorTintColor)
+    }
     #endif
     
     /// Initializes the page 📃📖 view. 👷‍♀️
@@ -104,24 +116,32 @@ public struct iPages<Content: View>: View {
     public var body: some View {
         ZStack(alignment: pageControlAlignment) {
             pageViewController
-            #if os(iOS)
             if showsPageControl {
                 switch pageControlAlignment {
                 case .leading, .trailing:
                     VStack {
                         if pageControlAlignment == .leading { Spacer() }
+                        #if os(iOS)
                         pageControl
+                        #else
+                        ipageControl
+                        #endif
                         if pageControlAlignment == .trailing { Spacer() }
                     }
                     .aspectRatio(1, contentMode: .fit)
                     .rotationEffect(.degrees(layoutDirection ~= .leftToRight ? 90 : -90))
                 default:
+                    #if os(iOS)
                     pageControl
                         .fixedSize()
                         .padding(.vertical)
+                    #else
+                    ipageControl
+                        .fixedSize()
+                        .padding(.vertical)
+                    #endif
                 }
             }
-            #endif
         }
     }
 }
