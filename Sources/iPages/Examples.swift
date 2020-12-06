@@ -1,42 +1,50 @@
 //
-//  File.swift
+//  Examples.swift
 //  
 //
 //  Created by Kalil Fine on 10/9/20.
 //
-
 import SwiftUI
 import iGraphics
-import iColors
+import iColor
 
+#if os(iOS)
 @available(iOS 14, *)
 struct CustomDotsExample: View {
     @State var currentPage: Int = 0
     var body: some View {
-        iPages([iGraphicsView(.first),
-                iGraphicsView(.second),
-                iGraphicsView(.third)],
-               currentPage: $currentPage)
-            .dotsBackgroundStyle(.prominent)
-            .dotsTintColors(currentPage: Colors.NeonPurple, otherPages: Colors.NeonRed)
+        iPages(selection: $currentPage) {
+            iGraphicsView(.first)
+            iGraphicsView(.second)
+            iGraphicsView(.third)
+        }
+        .dotsBackgroundStyle(.prominent)
+        .dotsTintColors(currentPage: Color.neonPurple, otherPages: Color.neonRed)
     }
 }
 
 struct ShoppingSwipeViewExample: View {
     @State var currentPage: Int = 0
     var body: some View {
-        iPages([iGraphicsBox(.photo).stack(3), iGraphicsBox(.card).stack(2)], currentPage: $currentPage)
-            .hideDots(true)
-            .wrapsInfinitely(true)
+        iPages(selection: $currentPage) {
+            iGraphicsBox(.photo)
+                .stack(3)
+            iGraphicsBox(.card)
+                .stack(2)
+        }
+        .hideDots(true)
+        .wraps(true)
     }
 }
 
 struct MarketingSwipeViewExample: View {
     @State var currentPage: Int = 0
     var body: some View {
-        iPages([iGraphicsView(.first),
-                iGraphicsView(.second),
-                iGraphicsView(.third)],
-               currentPage: $currentPage)
+        iPages(selection: $currentPage) {
+            iGraphicsView(.first)
+            iGraphicsView(.second)
+            iGraphicsView(.third)
+        }
     }
 }
+#endif
