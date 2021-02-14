@@ -5,8 +5,6 @@
 //  Created by Kalil Fine on 10/9/20.
 //
 import SwiftUI
-import iGraphics
-import iColor
 
 #if os(iOS)
 @available(iOS 14, *)
@@ -14,12 +12,11 @@ struct CustomDotsExample: View {
     @State var currentPage: Int = 0
     var body: some View {
         iPages(selection: $currentPage) {
-            iGraphicsView(.first)
-            iGraphicsView(.second)
-            iGraphicsView(.third)
+            Text("OnTap 🍻")
+                .font(.system(size: 32, weight: .light, design: .monospaced))
         }
         .dotsBackgroundStyle(.prominent)
-        .dotsTintColors(currentPage: Color.neonPurple, otherPages: Color.neonRed)
+        .dotsTintColors(currentPage: Color.pink, otherPages: Color.yellow)
     }
 }
 
@@ -27,10 +24,10 @@ struct ShoppingSwipeViewExample: View {
     @State var currentPage: Int = 0
     var body: some View {
         iPages(selection: $currentPage) {
-            iGraphicsBox(.photo)
-                .stack(3)
-            iGraphicsBox(.card)
-                .stack(2)
+            Text("OnTap 🍻")
+                .font(.system(size: 32, weight: .light, design: .monospaced))
+            Text("OnTap 🥂")
+                .font(.system(size: 32, weight: .light, design: .monospaced))
         }
         .hideDots(true)
         .wraps(true)
@@ -41,9 +38,10 @@ struct MarketingSwipeViewExample: View {
     @State var currentPage: Int = 0
     var body: some View {
         iPages(selection: $currentPage) {
-            iGraphicsView(.first)
-            iGraphicsView(.second)
-            iGraphicsView(.third)
+            Text("OnTap 🍻")
+                .font(.system(size: 32, weight: .light, design: .monospaced))
+            Text("OnTap 🥂")
+                .font(.system(size: 32, weight: .light, design: .monospaced))
         }
     }
 }
