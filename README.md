@@ -8,7 +8,7 @@
     <strong><a href="#install">Install</a></strong> | 
 </p>
 <p align="center">
-    <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/gifcity.gif" alt="CI" />
+    <img src="./Resources/ipages.gif" alt="CI" />
 </p>
 
 <br/>
@@ -38,7 +38,7 @@ struct ContentView: View {
 ## Examples
 ### Marketing Materials 💸
 
-<img align="right" src="https://iswiftui.com/assets/img/iPagesDemo2Light.gif" width="250">
+<img align="right" src="./Resources/iPagesDemo2Light.gif" width="250">
 
 Use `iGraphicsView` to demo marketing slides.
 
@@ -64,7 +64,7 @@ struct ContentView: View {
 <h3 align="left">Shopping App 🛍</h3>
 <p align="left">If you want, you can pass in your own optional selection binding to iPages. Hide the bottom dots & add infinite scroll to remove context.</p>
 
-<img align="left" src="https://iswiftui.com/assets/img/iPagesDemo1Dark.gif" width="250">
+<img align="left" src="./Resources/iPagesDemo1Dark.gif" width="250">
 
 ```swift
 import SwiftUI
@@ -128,18 +128,4 @@ Use our exhaustive input list to customize your views.
 
 ## Install 
 Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀
-
-## Help
-As always, if you have any questions about iPages, we are available 24/7 to help.
-
-<div align="center">
-
-| | Reach us at | |
---- |:---:|:---:
-📞 | +1 (415) 735-4464 | **Call**
-📧 | hello@iswiftui.com | **Email**
-📲 | +1 (415) 735-4464 | **Text**
-
-</div>
-
 
